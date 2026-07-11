@@ -1,0 +1,165 @@
+/* ================================
+   Google Font
+================================ */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import 'tailwindcss';
+
+/* ================================
+   Tailwind v4 Theme Configuration
+================================ */
+@theme {
+  /* Brand Colors */
+  --color-primary: #704F62;
+  --color-primary-light: #8B6277;
+  --color-primary-dark: #5B4050;
+
+  --color-secondary: #F7EBD5;
+  --color-secondary-light: #FFF9F2;
+  --color-secondary-dark: #EADCC2;
+
+  /* Accent Colors */
+  --color-accent: #C89B3C;
+  --color-accent-light: #E6C88B;
+  --color-accent-dark: #A67C2E;
+
+  /* Backgrounds */
+  --color-background: #FFF9F2;
+  --color-surface: #FCF5EA;
+  --color-card: #FFFFFF;
+  --color-overlay: rgba(112, 79, 98, 0.08);
+
+  /* Text */
+  --color-heading: #2E232D;
+  --color-body: #66545F;
+  --color-muted: #8C7A84;
+  --color-light-text: #A89AA2;
+
+  /* Borders */
+  --color-border: #D9C9B6;
+  --color-border-light: #EFE4D2;
+
+  /* Status */
+  --color-success: #6C9A63;
+  --color-warning: #D89B2B;
+  --color-error: #B65454;
+  --color-info: #5B8DEF;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(112, 79, 98, 0.08);
+  --shadow-md: 0 8px 24px rgba(112, 79, 98, 0.12);
+  --shadow-lg: 0 20px 40px rgba(112, 79, 98, 0.18);
+}
+
+/* ================================
+   Native Variables (Gradients)
+================================ */
+:root {
+  --gradient-primary: linear-gradient(
+    135deg,
+    #704F62 0%,
+    #8B6277 55%,
+    #C89B3C 100%
+  );
+
+  --gradient-secondary: linear-gradient(
+    180deg,
+    #FFF9F2 0%,
+    #F7EBD5 100%
+  );
+
+  --gradient-gold: linear-gradient(
+    135deg,
+    #C89B3C,
+    #E6C88B
+  );
+}
+
+/* ================================
+   Custom Fonts
+================================ */
+
+@font-face {
+  font-family: 'Minion-Variable';
+  src: url('/MinionVariableConcept-Roman.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Cooper-Light';
+  src: url('/Cooper-Light.ttf') format('truetype');
+}
+
+.minion {
+  font-family: 'Minion-Variable', serif;
+}
+
+.cooper-light {
+  font-family: 'Cooper-Light', serif;
+}
+
+.nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ================================
+   Default Typography
+================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--color-background);
+  color: var(--color-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-heading);
+}
+
+p,
+span,
+a,
+li,
+label,
+button,
+input,
+textarea {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ================================
+   Selection
+================================ */
+
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ================================
+   Scrollbar
+================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
