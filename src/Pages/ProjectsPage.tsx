@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
+const OG_IMAGE = `${SITE_URL}/og-portfolio.jpg`; // ← 1200x630 image, distinct from other pages
 
 // --- PROJECT DATA ---
 const projects = [
@@ -49,6 +53,43 @@ const projects = [
   }
 ];
 
+// Structured Data: Portfolio as a CollectionPage of CreativeWork case studies
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Brightliv Interiors Portfolio',
+  url: `${SITE_URL}/portfolio`,
+  description:
+    'An archive of Brightliv Interiors\' defining residential and commercial projects, showcasing structural integrity, functional planning, and timeless aesthetic execution.',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: projects.map((project, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: project.description,
+        image: `${SITE_URL}${project.images[0]}`,
+        creator: {
+          '@type': 'Organization',
+          name: 'Brightliv Interiors',
+        },
+      },
+    })),
+  },
+};
+
+// Breadcrumb structured data
+const breadcrumbData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Portfolio', item: `${SITE_URL}/portfolio` },
+  ],
+};
+
 // Framer Motion Variants
 const cardVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -71,7 +112,7 @@ const staggerContainer = {
 const AutoScrollGallery: React.FC<{ 
   images: string[]; 
   title: string; 
-  onImageClick: (img: string) => void 
+  onImageClick: (img: string, alt: string) => void 
 }> = ({ images, title, onImageClick }) => {
   // We duplicate the array to create a seamless infinite loop
   const extendedImages = [...images, ...images];
@@ -94,27 +135,31 @@ const AutoScrollGallery: React.FC<{
           duration: 25 // Increase this number to make it scroll slower, decrease to make it faster
         }}
       >
-        {extendedImages.map((img, index) => (
-          <div 
-            key={index}
-            onClick={() => onImageClick(img)}
-            className="shrink-0 w-[85vw] sm:w-[60vw] md:w-[400px] lg:w-[500px] aspect-[4/3] rounded-2xl overflow-hidden cursor-zoom-in relative group bg-gray-200"
-          >
-            <img 
-              src={img} 
-              alt={`${title} - view`}
-              className="w-full h-full object-cover grayscale mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
-            />
-            {/* Hover Overlay Icon */}
-            <div className="absolute inset-0 bg-[#704f62]/0 group-hover:bg-[#704f62]/20 transition-colors duration-300 flex items-center justify-center">
-              <div className="bg-[#FAF9F6] text-[#704f62] p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
-                </svg>
+        {extendedImages.map((img, index) => {
+          const altText = `${title} — view ${(index % images.length) + 1}`;
+          return (
+            <div 
+              key={index}
+              onClick={() => onImageClick(img, altText)}
+              className="shrink-0 w-[85vw] sm:w-[60vw] md:w-[400px] lg:w-[500px] aspect-[4/3] rounded-2xl overflow-hidden cursor-zoom-in relative group bg-gray-200"
+            >
+              <img 
+                src={img} 
+                alt={altText}
+                loading="lazy"
+                className="w-full h-full object-cover grayscale mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
+              />
+              {/* Hover Overlay Icon */}
+              <div className="absolute inset-0 bg-[#704f62]/0 group-hover:bg-[#704f62]/20 transition-colors duration-300 flex items-center justify-center">
+                <div className="bg-[#FAF9F6] text-[#704f62] p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </motion.div>
     </div>
   );
@@ -122,109 +167,168 @@ const AutoScrollGallery: React.FC<{
 
 export const Portfolio: React.FC = () => {
   // State to handle the lightbox/gallery view
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-    <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-32">
-      
-      {/* 1. HEADER SECTION (Centered) */}
-      <section className="w-full pt-32 md:pt-48 pb-16 px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-center text-center gap-4 max-w-3xl mx-auto"
-        >
-          <p className="text-sm tracking-[0.2em] uppercase opacity-70 flex items-center justify-center gap-4 w-full">
-            <span className="w-8 md:w-12 h-[1px] bg-[#704f62]"></span>
-            Selected Works
-            <span className="w-8 md:w-12 h-[1px] bg-[#704f62]"></span>
-          </p>
-          <h1 className="text-[48px] md:text-[72px] lg:text-[84px] leading-[1.05] cooper-light">
-            Our Portfolio.
-          </h1>
-          <p className="text-lg font-light opacity-80 mt-4 leading-relaxed">
-            An archive of our defining residential and commercial projects. Each case study represents our commitment to structural integrity, functional planning, and timeless aesthetic execution.
-          </p>
-        </motion.div>
-      </section>
+    <>
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>Portfolio | Brightliv Interiors — Selected Projects</title>
+        <meta
+          name="description"
+          content="Explore Brightliv Interiors' portfolio: The Heritage Townhouse, Coastal Retreat, The Glass Pavilion, and Avenue Penthouse. Residential and commercial design case studies."
+        />
+        <meta
+          name="keywords"
+          content="Brightliv Interiors portfolio, interior design case studies, luxury residential projects, architecture portfolio Hyderabad, townhouse restoration, penthouse design"
+        />
+        <meta name="author" content="Brightliv Interiors" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`${SITE_URL}/portfolio`} />
 
-      {/* 2. PROJECT CARDS FEED */}
-      <section className="w-full px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
-        <motion.div 
-          initial="hidden" animate="visible" variants={staggerContainer}
-          className="flex flex-col gap-16 md:gap-24"
-        >
-          {projects.map((project) => (
-            <motion.div 
-              key={project.id} 
-              variants={cardVariant}
-              className="w-full bg-[#FAF9F6] border border-[#704f62]/20 rounded-[2rem] p-6 md:p-10 lg:p-12 shadow-sm flex flex-col gap-8"
-            >
-              
-              {/* Card Header: Title & Description */}
-              <div className="flex flex-col lg:flex-row justify-between gap-6 lg:gap-12 lg:items-end border-b border-[#704f62]/10 pb-8">
-                <div className="w-full lg:w-1/2 flex flex-col gap-2">
-                  <span className="text-xs tracking-widest uppercase opacity-50 font-bold mb-2">Project 0{project.id}</span>
-                  <h2 className="text-[36px] md:text-[48px] cooper-light leading-tight">
-                    {project.title}
-                  </h2>
-                </div>
-                <div className="w-full lg:w-1/2">
-                  <p className="text-lg font-light opacity-80 leading-relaxed max-w-xl lg:ml-auto">
-                    {project.description}
-                  </p>
-                </div>
-              </div>
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/portfolio`} />
+        <meta property="og:site_name" content="Brightliv Interiors" />
+        <meta
+          property="og:title"
+          content="Portfolio | Brightliv Interiors — Selected Projects"
+        />
+        <meta
+          property="og:description"
+          content="An archive of our defining residential and commercial projects — structural integrity, functional planning, and timeless aesthetic execution."
+        />
+        <meta property="og:image" content={OG_IMAGE} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_IN" />
 
-              {/* Card Body: Auto Scrolling Gallery Component */}
-              <AutoScrollGallery 
-                images={project.images} 
-                title={project.title}
-                onImageClick={setSelectedImage} 
-              />
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={`${SITE_URL}/portfolio`} />
+        <meta
+          name="twitter:title"
+          content="Portfolio | Brightliv Interiors — Selected Projects"
+        />
+        <meta
+          name="twitter:description"
+          content="An archive of our defining residential and commercial projects — structural integrity, functional planning, and timeless aesthetic execution."
+        />
+        <meta name="twitter:image" content={OG_IMAGE} />
 
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
+        {/* Theme */}
+        <meta name="theme-color" content="#FAF9F6" />
 
-      {/* 3. FULLSCREEN GALLERY MODAL */}
-      <AnimatePresence>
-        {selectedImage && (
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbData)}
+        </script>
+      </Helmet>
+
+      <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-32">
+        
+        {/* 1. HEADER SECTION (Centered) */}
+        <section className="w-full pt-32 md:pt-48 pb-16 px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#704f62]/95 backdrop-blur-md p-4 md:p-12 cursor-zoom-out"
-            onClick={() => setSelectedImage(null)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center text-center gap-4 max-w-3xl mx-auto"
           >
-            {/* Close Button */}
-            <button 
-              className="absolute top-6 right-6 md:top-10 md:right-10 text-[#FAF9F6] bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors"
+            <p className="text-sm tracking-[0.2em] uppercase opacity-70 flex items-center justify-center gap-4 w-full">
+              <span className="w-8 md:w-12 h-[1px] bg-[#704f62]"></span>
+              Selected Works
+              <span className="w-8 md:w-12 h-[1px] bg-[#704f62]"></span>
+            </p>
+            <h1 className="text-[48px] md:text-[72px] lg:text-[84px] leading-[1.05] cooper-light">
+              Our Portfolio.
+            </h1>
+            <p className="text-lg font-light opacity-80 mt-4 leading-relaxed">
+              An archive of our defining residential and commercial projects. Each case study represents our commitment to structural integrity, functional planning, and timeless aesthetic execution.
+            </p>
+          </motion.div>
+        </section>
+
+        {/* 2. PROJECT CARDS FEED */}
+        <section className="w-full px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
+          <motion.div 
+            initial="hidden" animate="visible" variants={staggerContainer}
+            className="flex flex-col gap-16 md:gap-24"
+          >
+            {projects.map((project) => (
+              <motion.div 
+                key={project.id} 
+                variants={cardVariant}
+                className="w-full bg-[#FAF9F6] border border-[#704f62]/20 rounded-[2rem] p-6 md:p-10 lg:p-12 shadow-sm flex flex-col gap-8"
+              >
+                
+                {/* Card Header: Title & Description */}
+                <div className="flex flex-col lg:flex-row justify-between gap-6 lg:gap-12 lg:items-end border-b border-[#704f62]/10 pb-8">
+                  <div className="w-full lg:w-1/2 flex flex-col gap-2">
+                    <span className="text-xs tracking-widest uppercase opacity-50 font-bold mb-2">Project 0{project.id}</span>
+                    <h2 className="text-[36px] md:text-[48px] cooper-light leading-tight">
+                      {project.title}
+                    </h2>
+                  </div>
+                  <div className="w-full lg:w-1/2">
+                    <p className="text-lg font-light opacity-80 leading-relaxed max-w-xl lg:ml-auto">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card Body: Auto Scrolling Gallery Component */}
+                <AutoScrollGallery 
+                  images={project.images} 
+                  title={project.title}
+                  onImageClick={(src, alt) => setSelectedImage({ src, alt })} 
+                />
+
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* 3. FULLSCREEN GALLERY MODAL */}
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#704f62]/95 backdrop-blur-md p-4 md:p-12 cursor-zoom-out"
               onClick={() => setSelectedImage(null)}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
+              {/* Close Button */}
+              <button 
+                className="absolute top-6 right-6 md:top-10 md:right-10 text-[#FAF9F6] bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors"
+                onClick={() => setSelectedImage(null)}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
 
-            {/* Expanded Image */}
-            <motion.img 
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              src={selectedImage}
-              alt="Expanded view"
-              className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {/* Expanded Image */}
+              <motion.img 
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-    </main>
+      </main>
+    </>
   );
 };
