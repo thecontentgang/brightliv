@@ -126,14 +126,15 @@ export const ServicesSection: React.FC = () => {
                   </p>
                   <Link 
   to={`/services/${item.title.toLowerCase().replace(' ', '-')}`}
-  className="group inline-flex items-center bg-[var(--color-primary)] rounded-[14px] overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+  className="group inline-flex items-center justify-center gap-3 bg-[var(--color-primary)] text-[var(--color-background)] px-8 py-4 rounded-[14px] shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:rounded-[22px]"
 >
-  <span className="px-6 py-4 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold text-[var(--color-background)]">
+  <span className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold">
     Explore Details
   </span>
-  <span className="bg-black/20 px-5 py-4 flex items-center justify-center transition-colors duration-300 group-hover:bg-black/30">
+  
+  <span className="flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
     <svg 
-      className="w-4 h-4 text-[var(--color-background)] transition-transform duration-300 group-hover:translate-x-1" 
+      className="w-4 h-4" 
       fill="none" 
       viewBox="0 0 24 24" 
       stroke="currentColor"

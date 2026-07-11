@@ -21,7 +21,7 @@ const cards: GalleryCard[] = [
     title: 'Luxury Villas',
     subtitle: 'Timeless Elegance',
     icon: <Home size={16} />,
-    height: 'h-[240px] sm:h-[280px] md:h-[320px]',
+    height: 'h-[220px] sm:h-[280px] md:h-[320px]',
     cornerStyle: 'rounded-tr-[40px] md:rounded-tr-[80px]',
     rotate: 'md:-rotate-2',
   },
@@ -31,7 +31,7 @@ const cards: GalleryCard[] = [
     title: 'Interior Design',
     subtitle: 'Where Comfort Meets Style',
     icon: <Sofa size={16} />,
-    height: 'h-[260px] sm:h-[320px] md:h-[380px]',
+    height: 'h-[240px] sm:h-[320px] md:h-[380px]',
     cornerStyle: 'rounded-t-[30px] md:rounded-t-[40px]',
     rotate: 'md:-rotate-1',
   },
@@ -41,7 +41,7 @@ const cards: GalleryCard[] = [
     title: 'Architecture',
     subtitle: 'Innovative & Functional',
     icon: <Building2 size={16} />,
-    height: 'h-[280px] sm:h-[360px] md:h-[440px]',
+    height: 'h-[260px] sm:h-[360px] md:h-[440px]',
     cornerStyle: 'rounded-t-[35px] md:rounded-t-[50px]',
     rotate: 'rotate-0',
   },
@@ -51,7 +51,7 @@ const cards: GalleryCard[] = [
     title: 'Commercial Spaces',
     subtitle: 'Built for Business',
     icon: <Briefcase size={16} />,
-    height: 'h-[260px] sm:h-[320px] md:h-[380px]',
+    height: 'h-[240px] sm:h-[320px] md:h-[380px]',
     cornerStyle: 'rounded-t-[30px] md:rounded-t-[40px]',
     rotate: 'md:rotate-1',
   },
@@ -61,7 +61,7 @@ const cards: GalleryCard[] = [
     title: 'Custom Solutions',
     subtitle: 'Tailored to You',
     icon: <Box size={16} />,
-    height: 'h-[240px] sm:h-[280px] md:h-[320px]',
+    height: 'h-[220px] sm:h-[280px] md:h-[320px]',
     cornerStyle: 'rounded-tl-[40px] md:rounded-tl-[80px]',
     rotate: 'md:rotate-2',
   },
@@ -69,7 +69,7 @@ const cards: GalleryCard[] = [
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative w-full min-h-screen bg-[var(--color-background,#0a0a0a)] flex flex-col items-center pt-24 sm:pt-32 md:pt-44 pb-12 sm:pb-16 md:pb-20 overflow-hidden">
+    <section className="relative w-full min-h-0 md:min-h-screen flex flex-col items-center pt-36 sm:pt-40 md:pt-44 pb-10 sm:pb-14 md:pb-20 overflow-hidden bg-[var(--color-background,#0a0a0a)]">
 
       {/* Text Container */}
       <div className="relative z-10 w-full max-w-7xl px-5 sm:px-8 md:px-12 lg:px-16 text-center select-none">
@@ -77,7 +77,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
-          className="text-[var(--color-primary,#F9F7F3)] text-[28px] sm:text-[38px] md:text-[52px] font-light tracking-wide leading-snug md:leading-[1.15] cooper-light"
+          className="text-[var(--color-primary,#F9F7F3)] text-[30px] sm:text-[38px] md:text-[52px] font-light tracking-wide leading-snug md:leading-[1.15] cooper-light"
         >
           Spaces that inspire and <br className="hidden md:block" /> elevate everyday living.
         </motion.h1>
@@ -128,7 +128,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Gallery — scroll-snap carousel on mobile/tablet, fan layout on desktop */}
-      <div className="relative z-10 w-full max-w-7xl mt-10 sm:mt-14 md:mt-20">
+      <div className="relative z-10 w-full max-w-7xl mt-10 sm:mt-12 md:mt-20">
         <div
           className="
             flex md:items-end
@@ -136,7 +136,7 @@ export const Hero: React.FC = () => {
             overflow-x-auto md:overflow-visible
             snap-x snap-mandatory md:snap-none
             px-5 sm:px-8 md:px-4
-            pb-4 md:pb-0
+            pb-3 md:pb-0
             scrollbar-hide
             justify-start md:justify-center
           "
@@ -201,10 +201,6 @@ export const Hero: React.FC = () => {
           ))}
         </div>
 
-        {/* Mobile swipe hint (auto-hides after first interaction if you wire it up) */}
-        <p className="md:hidden text-center text-white/40 text-xs mt-3">
-          Swipe to explore →
-        </p>
       </div>
     </section>
   );
