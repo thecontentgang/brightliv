@@ -76,13 +76,22 @@ const tabletCards = [
 
 export const Hero: React.FC = () => {
   const [active, setActive] = React.useState(0);
+  
+
+  
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % cards.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative w-full min-h-0 md:min-h-screen flex flex-col items-center overflow-hidden bg-[var(--color-background,#0a0a0a)]">
 
       {/* ============ MOBILE-ONLY HERO (<640px) — full viewport height, dvh-safe ============ */}
       <div
-        className="flex sm:hidden flex-col w-full min-h-screen min-h-[100dvh] pt-24 pb-4"
+        className="flex sm:hidden flex-col w-full min-h-[100dvh] pt-24 pb-4"
         style={{
           paddingTop: 'max(6rem, env(safe-area-inset-top))',
           paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
@@ -121,7 +130,7 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Showcase image — grows to fill remaining vertical space */}
+        {/* Showcase image — grows to fill remaining vertical space, auto-transitions every 2s */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -136,52 +145,36 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
           </AnimatePresence>
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
 
-          <div className="absolute bottom-4 left-5 right-5 flex items-center gap-3">
-            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
-              {cards[active].icon}
-            </div>
-            <div className="min-w-0">
-              <p className="text-white text-[15px] font-medium truncate">
-                {cards[active].title}
-              </p>
-              <p className="text-white/60 text-xs truncate">
-                {cards[active].subtitle}
-              </p>
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={cards[active].id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="absolute bottom-4 left-5 right-5 flex items-center gap-3"
+            >
+              <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
+                {cards[active].icon}
+              </div>
+              <div className="min-w-0">
+                <p className="text-white text-[15px] font-medium truncate">
+                  {cards[active].title}
+                </p>
+                <p className="text-white/60 text-xs truncate">
+                  {cards[active].subtitle}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
-        {/* Category pill scroller — pinned near bottom, controls showcase image */}
-        <div
-          className="flex gap-2 mt-4 px-5 overflow-x-auto shrink-0 [&::-webkit-scrollbar]:hidden"
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
-          }}
-        >
-          {cards.map((card, i) => (
-            <button
-              key={card.id}
-              type="button"
-              onClick={() => setActive(i)}
-              className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
-                i === active
-                  ? 'bg-[var(--color-accent,#C4623A)] text-white'
-                  : 'bg-white/10 text-white/70 border border-white/15'
-              }`}
-            >
-              <span className="[&>svg]:w-3.5 [&>svg]:h-3.5">{card.icon}</span>
-              {card.title}
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* ============ TABLET-ONLY HERO (640px–768px) — exactly 3 cards, fan heights ============ */}
