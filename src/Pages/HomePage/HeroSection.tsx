@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Home, Sofa, Building2, Briefcase, Box } from 'lucide-react';
 
@@ -67,141 +67,317 @@ const cards: GalleryCard[] = [
   },
 ];
 
+// Tablet shows only 3 cards, with explicit fan-style heights (short - tall - short)
+const tabletCards = [
+  { ...cards[0], tabletHeight: 'h-[260px]' },   // Villas — shorter
+  { ...cards[1], tabletHeight: 'h-[340px]' },   // Interior — tallest
+  { ...cards[2], tabletHeight: 'h-[300px]' },   // Architecture — mid
+];
+
 export const Hero: React.FC = () => {
+  const [active, setActive] = React.useState(0);
+
   return (
-    <section className="relative w-full min-h-0 md:min-h-screen flex flex-col items-center pt-36 sm:pt-40 md:pt-44 pb-10 sm:pb-14 md:pb-20 overflow-hidden bg-[var(--color-background,#0a0a0a)]">
+    <section className="relative w-full min-h-0 md:min-h-screen flex flex-col items-center overflow-hidden bg-[var(--color-background,#0a0a0a)]">
 
-      {/* Text Container */}
-      <div className="relative z-10 w-full max-w-7xl px-5 sm:px-8 md:px-12 lg:px-16 text-center select-none">
-        <motion.h1
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
-          className="text-[var(--color-primary,#F9F7F3)] text-[30px] sm:text-[38px] md:text-[52px] font-light tracking-wide leading-snug md:leading-[1.15] cooper-light"
-        >
-          Spaces that inspire and <br className="hidden md:block" /> elevate everyday living.
-        </motion.h1>
+      {/* ============ MOBILE-ONLY HERO (<640px) — full viewport height, dvh-safe ============ */}
+      <div
+        className="flex sm:hidden flex-col w-full min-h-screen min-h-[100dvh] pt-24 pb-4"
+        style={{
+          paddingTop: 'max(6rem, env(safe-area-inset-top))',
+          paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
+        }}
+      >
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.7 }}
-          className="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4 pointer-events-auto"
-        >
-          {/* Primary Action */}
+        {/* Heading + CTAs — pinned near top */}
+        <div className="px-5 text-center select-none shrink-0">
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.3 }}
+            className="text-[var(--color-primary,#F9F7F3)] text-[27px] font-light tracking-wide leading-snug cooper-light"
+          >
+            Spaces that inspire and elevate everyday living.
+          </motion.h1>
+
           <motion.div
-            whileHover={{
-              scale: 1.03,
-              backgroundColor: 'var(--color-primary-dark)',
-              borderRadius: '28px',
-            }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1, delay: 0.55 }}
+            className="mt-5 flex items-center justify-center gap-2.5"
           >
             <Link
               to="/portfolio"
-              className="bg-[var(--color-primary)] text-[var(--color-background)] px-5 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-md transition-colors flex items-center gap-2 text-sm sm:text-base whitespace-nowrap"
+              className="bg-[var(--color-primary)] text-[var(--color-background)] px-5 py-2.5 rounded-[18px] shadow-md text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
             >
               Explore Projects
             </Link>
-          </motion.div>
-
-          {/* Secondary Action */}
-          <motion.div
-            whileHover={{
-              scale: 1.03,
-              backgroundColor: 'var(--color-secondary-dark)',
-              borderRadius: '28px',
-            }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.3 }}
-          >
             <Link
               to="/services"
-              className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-5 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-sm transition-colors text-sm sm:text-base whitespace-nowrap"
+              className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-5 py-2.5 rounded-[18px] shadow-sm text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
             >
               Our Services
             </Link>
           </motion.div>
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Gallery — scroll-snap carousel on mobile/tablet, fan layout on desktop */}
-      <div className="relative z-10 w-full max-w-7xl mt-10 sm:mt-12 md:mt-20">
+        {/* Showcase image — grows to fill remaining vertical space */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ease: [0.22, 1, 0.36, 1], duration: 1, delay: 0.75 }}
+          className="relative mt-6 mx-5 flex-1 min-h-0 overflow-hidden rounded-[24px]"
+        >
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={cards[active].id}
+              src={cards[active].image}
+              alt={cards[active].title}
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+
+          <div className="absolute bottom-4 left-5 right-5 flex items-center gap-3">
+            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
+              {cards[active].icon}
+            </div>
+            <div className="min-w-0">
+              <p className="text-white text-[15px] font-medium truncate">
+                {cards[active].title}
+              </p>
+              <p className="text-white/60 text-xs truncate">
+                {cards[active].subtitle}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Category pill scroller — pinned near bottom, controls showcase image */}
         <div
-          className="
-            flex md:items-end
-            gap-3 sm:gap-4 md:gap-4
-            overflow-x-auto md:overflow-visible
-            snap-x snap-mandatory md:snap-none
-            px-5 sm:px-8 md:px-4
-            pb-3 md:pb-0
-            scrollbar-hide
-            justify-start md:justify-center
-          "
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-2 mt-4 px-5 overflow-x-auto shrink-0 [&::-webkit-scrollbar]:hidden"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
         >
           {cards.map((card, i) => (
-            <motion.div
+            <button
               key={card.id}
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                ease: [0.22, 1, 0.36, 1],
-                duration: 1.1,
-                delay: 0.5 + i * 0.12,
-              }}
-              className={`
-                group relative shrink-0
-                w-[72%] xs:w-[65%] sm:w-[45%] md:w-auto md:flex-1 md:min-w-0
-                ${card.height} ${card.cornerStyle} ${card.rotate}
-                overflow-hidden shadow-2xl
-                transition-transform duration-500
-                md:hover:rotate-0 md:hover:scale-[1.03] hover:z-20
-                snap-center md:snap-align-none
-              `}
-            >
-              <img
-                src={card.image}
-                alt={card.title}
-                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-              <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center gap-2.5 sm:gap-3">
-                <div className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
-                  {card.icon}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-white text-xs sm:text-sm md:text-[15px] font-medium truncate">
-                    {card.title}
-                  </p>
-                  <p className="text-white/60 text-[10px] sm:text-xs truncate">
-                    {card.subtitle}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Dot pagination (decorative) */}
-        <div className="flex items-center justify-center gap-2 mt-6 sm:mt-8">
-          {cards.map((_, i) => (
-            <span
-              key={i}
-              className={`h-1.5 rounded-full transition-all ${
-                i === 0
-                  ? 'w-6 bg-[var(--color-accent,#C4623A)]'
-                  : 'w-1.5 bg-white/25'
+              type="button"
+              onClick={() => setActive(i)}
+              className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                i === active
+                  ? 'bg-[var(--color-accent,#C4623A)] text-white'
+                  : 'bg-white/10 text-white/70 border border-white/15'
               }`}
-            />
+            >
+              <span className="[&>svg]:w-3.5 [&>svg]:h-3.5">{card.icon}</span>
+              {card.title}
+            </button>
           ))}
         </div>
-
       </div>
+
+      {/* ============ TABLET-ONLY HERO (640px–768px) — exactly 3 cards, fan heights ============ */}
+      <div className="hidden sm:flex md:hidden flex-col items-center w-full pt-40 pb-14">
+
+        <div className="relative z-10 w-full max-w-7xl px-8 text-center select-none">
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
+            className="text-[var(--color-primary,#F9F7F3)] text-[38px] font-light tracking-wide leading-snug cooper-light"
+          >
+            Spaces that inspire and elevate everyday living.
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.7 }}
+            className="mt-8 flex items-center justify-center gap-4"
+          >
+            <motion.div
+              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-primary-dark)', borderRadius: '28px' }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link
+                to="/portfolio"
+                className="bg-[var(--color-primary)] text-[var(--color-background)] px-8 py-3 rounded-[18px] shadow-md transition-colors flex items-center gap-2 text-base whitespace-nowrap"
+              >
+                Explore Projects
+              </Link>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-secondary-dark)', borderRadius: '28px' }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link
+                to="/services"
+                className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-8 py-3 rounded-[18px] shadow-sm transition-colors text-base whitespace-nowrap"
+              >
+                Our Services
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mt-12">
+          <div className="flex items-end gap-4 justify-center px-8">
+            {tabletCards.map((card, i) => (
+              <motion.div
+                key={card.id}
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.1, delay: 0.5 + i * 0.12 }}
+                className={`
+                  group relative flex-1 min-w-0
+                  ${card.tabletHeight} ${card.cornerStyle}
+                  overflow-hidden shadow-2xl
+                  transition-transform duration-500
+                  hover:scale-[1.03] hover:z-20
+                `}
+              >
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
+                    {card.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-white text-[15px] font-medium truncate">{card.title}</p>
+                    <p className="text-white/60 text-xs truncate">{card.subtitle}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {tabletCards.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === 0 ? 'w-6 bg-[var(--color-accent,#C4623A)]' : 'w-1.5 bg-white/25'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ============ DESKTOP HERO (768px+) — original 5-card fan, unchanged ============ */}
+      <div className="hidden md:flex flex-col items-center w-full pt-44 pb-20">
+
+        <div className="relative z-10 w-full max-w-7xl px-12 lg:px-16 text-center select-none">
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
+            className="text-[var(--color-primary,#F9F7F3)] text-[52px] font-light tracking-wide leading-[1.15] cooper-light"
+          >
+            Spaces that inspire and <br /> elevate everyday living.
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.7 }}
+            className="mt-8 flex items-center justify-center gap-4 pointer-events-auto"
+          >
+            <motion.div
+              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-primary-dark)', borderRadius: '28px' }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link
+                to="/portfolio"
+                className="bg-[var(--color-primary)] text-[var(--color-background)] px-8 py-3 rounded-[18px] shadow-md transition-colors flex items-center gap-2 text-base whitespace-nowrap"
+              >
+                Explore Projects
+              </Link>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-secondary-dark)', borderRadius: '28px' }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link
+                to="/services"
+                className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-8 py-3 rounded-[18px] shadow-sm transition-colors text-base whitespace-nowrap"
+              >
+                Our Services
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mt-20">
+          <div className="flex items-end gap-4 justify-center px-4">
+            {cards.map((card, i) => (
+              <motion.div
+                key={card.id}
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.1, delay: 0.5 + i * 0.12 }}
+                className={`
+                  group relative flex-1 min-w-0
+                  ${card.height} ${card.cornerStyle} ${card.rotate}
+                  overflow-hidden shadow-2xl
+                  transition-transform duration-500
+                  hover:rotate-0 hover:scale-[1.03] hover:z-20
+                `}
+              >
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
+                    {card.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-white text-[15px] font-medium truncate">{card.title}</p>
+                    <p className="text-white/60 text-xs truncate">{card.subtitle}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {cards.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === 0 ? 'w-6 bg-[var(--color-accent,#C4623A)]' : 'w-1.5 bg-white/25'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 };
