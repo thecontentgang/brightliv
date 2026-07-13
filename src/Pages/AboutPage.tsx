@@ -174,9 +174,9 @@ export const About: React.FC = () => {
               className="w-full h-[40vh] md:h-[55vh] rounded-[2.5rem] overflow-hidden border border-[var(--color-primary)]/10 relative group"
             >
               <img
-                src="/api/placeholder/1200/600"
+                src="/about-img.webp"
                 alt="Brightliv Signature Space"
-                className="w-full h-full object-cover grayscale mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
+                className="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
               {/* Soft color overlay to blend perfectly with the background */}
               <div className="absolute inset-0 bg-[var(--color-primary)]/5 mix-blend-overlay pointer-events-none"></div>
@@ -326,71 +326,8 @@ export const About: React.FC = () => {
           </motion.div>
         </section>
 
-        {/* 6. TEAM CARDS (5 Employees) */}
-        <section className="w-full py-24 bg-[var(--color-primary)]/5 border-y border-[var(--color-primary)]/10">
-          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={cardVariant}
-              className="mb-16 text-center"
-            >
-              <h2 className="text-[36px] md:text-[48px] cooper-light text-[var(--color-heading)]">Our Core Team</h2>
-              <p className="mt-4 text-lg font-light opacity-70 text-[var(--color-body)]">Dedicated professionals ensuring project excellence.</p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}
-              className="flex flex-wrap justify-center gap-6"
-            >
-              {[
-                {
-                  name: 'Sarah Jenkins',
-                  role: 'Director of Operations',
-                  desc: 'Sarah oversees project timelines, budget allocations, and day-to-day studio management to ensure efficient project delivery.'
-                },
-                {
-                  name: 'David Chen',
-                  role: 'Lead Architect',
-                  desc: 'David manages structural planning and spatial configurations, ensuring all designs comply with building codes and engineering standards.'
-                },
-                {
-                  name: 'Amara Singh',
-                  role: 'Senior Interior Designer',
-                  desc: 'Amara develops comprehensive design concepts and material specifications tailored specifically to client requirements.'
-                },
-                {
-                  name: 'Michael Brooks',
-                  role: 'Head of Procurement',
-                  desc: 'Michael directs the sourcing and purchasing of furniture, fixtures, and materials while negotiating vendor contracts.'
-                },
-                {
-                  name: 'Jessica Taylor',
-                  role: 'Project Manager',
-                  desc: 'Jessica acts as the primary point of contact for clients and contractors, coordinating all site activities during construction.'
-                },
-              ].map((employee, i) => (
-                <motion.div
-                  key={i} variants={cardVariant}
-                  className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] p-6 bg-[var(--color-background)] border border-[var(--color-primary)]/20 rounded-3xl flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 shadow-sm"
-                >
-                  {/* Employee Image Placeholder */}
-                  <div className="w-32 h-32 rounded-full bg-[var(--color-border-light)] overflow-hidden mb-6 border-4 border-[var(--color-background)] shadow-sm">
-                    <img
-                      src={`/api/placeholder/200/200?text=${employee.name.split(' ')[0]}`}
-                      alt={`${employee.name}, ${employee.role} at Brightliv Interiors`}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                    />
-                  </div>
-                  <h3 className="text-[24px] cooper-light mb-1 text-[var(--color-heading)]">{employee.name}</h3>
-                  <span className="text-xs font-bold tracking-widest uppercase opacity-60 mb-4 text-[var(--color-primary)]">{employee.role}</span>
-                  <p className="text-sm font-light opacity-80 leading-relaxed px-2 text-[var(--color-body)]">
-                    {employee.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
+        
+        
         {/* 7. CTA CARD */}
         <section className="w-full py-32 px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
           <motion.div

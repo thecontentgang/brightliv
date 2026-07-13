@@ -69,9 +69,10 @@ export const Navbar: React.FC = () => {
         <div className="flex-shrink-0 flex justify-center">
           <MotionLink to="/" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="block focus:outline-none">
             <img 
-              src="/your-logo.png" 
-              alt="Brightliv Logo" 
-              className="h-7 md:h-10 w-auto object-contain" 
+              // DYNAMIC LOGO SWAP: Icon when scrolled, Full logo when at the top
+              src={isScrolled ? "/Brightliv-icon.png" : "/Brightliv-logo.png"} 
+              alt={isScrolled ? "Brightliv Icon" : "Brightliv Logo"} 
+              className="h-7 md:h-12 lg:h-16 w-auto object-contain transition-all duration-300" 
             />
           </MotionLink>
         </div>

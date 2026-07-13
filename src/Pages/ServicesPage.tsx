@@ -11,47 +11,47 @@ const serviceCategories = [
     title: "Core Architecture & Millwork",
     description: "The foundational elements that define the structure and flow of your space.",
     services: [
-      { name: "False Ceiling", desc: "Enhance your interiors with premium false ceiling designs that add depth, elegance, and a luxurious touch.", image: "/api/placeholder/600/400?text=False+Ceiling" },
-      { name: "Modular Woodwork", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/api/placeholder/600/400?text=Modular+Woodwork" },
-      { name: "Wall Cladding", desc: "Give your walls a modern and durable upgrade with stone and wooden cladding, crafted for timeless appeal.", image: "/api/placeholder/600/400?text=Wall+Cladding" },
-      { name: "Aluminium Partitions", desc: "Create smart, modern divisions in your space with durable aluminium partitions, a blend of utility and design.", image: "/api/placeholder/600/400?text=Partitions" },
-      { name: "Premium Doors", desc: "From wooden to glass, we provide luxury door solutions designed to enhance both aesthetics and security.", image: "/api/placeholder/600/400?text=Premium+Doors" },
-      { name: "Stone & Steel Works", desc: "Add structure and style to your interiors with custom stone and steel works crafted for long-term beauty.", image: "/api/placeholder/600/400?text=Stone+%26+Steel" },
+      { name: "False Ceiling", desc: "Enhance your interiors with premium false ceiling designs that add depth, elegance, and a luxurious touch.", image: "/Service-Images/false-ceiling.webp" },
+      { name: "Modular Woodwork", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/Service-Images/wood-work.webp" },
+      { name: "Wall Cladding", desc: "Give your walls a modern and durable upgrade with stone and wooden cladding, crafted for timeless appeal.", image: "/Service-Images/wall-cladding.webp" },
+      { name: "Aluminium Partitions", desc: "Create smart, modern divisions in your space with durable aluminium partitions, a blend of utility and design.", image: "/Service-Images/aluminium-partitions.webp" },
+      { name: "Premium Doors", desc: "From wooden to glass, we provide luxury door solutions designed to enhance both aesthetics and security.", image: "/Service-Images/premium-doors.webp" },
+      { name: "Stone & Steel Works", desc: "Add structure and style to your interiors with custom stone and steel works crafted for long-term beauty.", image: "/Service-Images/stone-steel-works.webp" },
     ]
   },
   {
     title: "Surfaces & Finishes",
     description: "Textures and tones that create the atmospheric baseline of your home.",
     services: [
-      { name: "Painting", desc: "Give your walls a luxurious, flawless finish with high-quality painting services designed to elevate your space.", image: "/api/placeholder/600/400?text=Painting" },
-      { name: "Wallpapers", desc: "Transform your walls with elegant wallpapers that add warmth, personality, and a touch of luxury to your interiors.", image: "/api/placeholder/600/400?text=Wallpapers" },
-      { name: "Wooden Flooring", desc: "Step onto comfort with high-quality wooden flooring, designed for a premium look and lasting durability.", image: "/api/placeholder/600/400?text=Wooden+Flooring" },
-      { name: "Ceramic Tiles", desc: "Explore a wide range of luxury ceramic tiles, perfect for elegant walls, floors, and bathrooms.", image: "/api/placeholder/600/400?text=Ceramic+Tiles" },
-      { name: "Granite Works", desc: "Bring natural beauty to your interiors with premium granite finishes, ideal for kitchens and countertops.", image: "/api/placeholder/600/400?text=Granite+Works" },
+      { name: "Painting", desc: "Give your walls a luxurious, flawless finish with high-quality painting services designed to elevate your space.", image: "/Service-Images/painting.webp" },
+      { name: "Wallpapers", desc: "Transform your walls with elegant wallpapers that add warmth, personality, and a touch of luxury to your interiors.", image: "/Service-Images/wallpapers.webp" },
+      { name: "Wooden Flooring", desc: "Step onto comfort with high-quality wooden flooring, designed for a premium look and lasting durability.", image: "/Service-Images/wooden-flooring.webp" },
+      { name: "Ceramic Tiles", desc: "Explore a wide range of luxury ceramic tiles, perfect for elegant walls, floors, and bathrooms.", image: "/Service-Images/ceramic-tiles.png" },
+      { name: "Granite Works", desc: "Bring natural beauty to your interiors with premium granite finishes, ideal for kitchens and countertops.", image: "/Service-Images/granite-works.webp" },
     ]
   },
   {
     title: "Furnishings & Textiles",
     description: "Curated layers of comfort, art, and custom upholstery.",
     services: [
-      { name: "Luxury Sofas", desc: "Discover custom-made luxury sofas, handcrafted for superior comfort and timeless elegance.", image: "/api/placeholder/600/400?text=Luxury+Sofas" },
-      { name: "Bespoke Beds", desc: "Sleep in style with premium design, utilizing high-grade plywood and imported luxury fabrics.", image: "/api/placeholder/600/400?text=Bespoke+Beds" },
-      { name: "Home Furniture", desc: "From dining to decor, our premium home furniture collection adds sophistication to every corner.", image: "/api/placeholder/600/400?text=Home+Furniture" },
-      { name: "Long Curtains", desc: "Add grandeur to your rooms with beautifully stitched, luxury long curtains that elevate every window space.", image: "/api/placeholder/600/400?text=Long+Curtains" },
-      { name: "Window Blinds", desc: "Enhance privacy and aesthetics with premium blinds tailored to suit both modern and classic interiors.", image: "/api/placeholder/600/400?text=Window+Blinds" },
-      { name: "Outdoor Furniture", desc: "Make the outdoors as luxurious as your indoors with durable, stylish outdoor furniture crafted to impress.", image: "/api/placeholder/600/400?text=Outdoor+Furniture" },
-      { name: "Designer Swings (Zula)", desc: "Add charm and comfort to your balconies or living areas with beautifully crafted designer swings.", image: "/api/placeholder/600/400?text=Designer+Swings" },
+      { name: "Luxury Sofas", desc: "Discover custom-made luxury sofas, handcrafted for superior comfort and timeless elegance.", image: "/Service-Images/luxury-sofas.webp" },
+      { name: "Bespoke Beds", desc: "Sleep in style with premium design, utilizing high-grade plywood and imported luxury fabrics.", image: "/Service-Images/beds.webp" },
+      { name: "Home Furniture", desc: "From dining to decor, our premium home furniture collection adds sophistication to every corner.", image: "/Service-Images/home-furniture.webp" },
+      { name: "Long Curtains", desc: "Add grandeur to your rooms with beautifully stitched, luxury long curtains that elevate every window space.", image: "/Service-Images/curtains.webp" },
+      { name: "Window Blinds", desc: "Enhance privacy and aesthetics with premium blinds tailored to suit both modern and classic interiors.", image: "/Service-Images/window-blinds.webp" },
+      { name: "Outdoor Furniture", desc: "Make the outdoors as luxurious as your indoors with durable, stylish outdoor furniture crafted to impress.", image: "/Service-Images/outdoor-furniture.webp" },
+      { name: "Designer Swings (Zula)", desc: "Add charm and comfort to your balconies or living areas with beautifully crafted designer swings.", image: "/Service-Images/zula.webp" },
     ]
   },
   {
     title: "Specialized Installations",
     description: "Advanced integrations for modern luxury, recreation, and peace of mind.",
     services: [
-      { name: "Home Theaters", desc: "Experience cinematic luxury at home with our custom home theater setups that blend design with technology.", image: "/api/placeholder/600/400?text=Home+Theaters" },
-      { name: "Home Lifts", desc: "We install premium home lifts that combine convenience with modern aesthetics for luxury living.", image: "/api/placeholder/600/400?text=Home+Lifts" },
-      { name: "Swimming Pools", desc: "Redefine recreation with luxury swimming pools, designed for relaxation and built with precision.", image: "/api/placeholder/600/400?text=Swimming+Pools" },
-      { name: "Invisible Grills", desc: "Ensure safety without compromising style through invisible balcony grills with a clean, premium finish.", image: "/api/placeholder/600/400?text=Invisible+Grills" },
-      { name: "Pest Control", desc: "Protect your interiors with professional pest control services ensuring a hygienic and comfortable home.", image: "/api/placeholder/600/400?text=Pest+Control" },
+      { name: "Home Theaters", desc: "Experience cinematic luxury at home with our custom home theater setups that blend design with technology.", image: "/Service-Images/home-theatre.webp" },
+      { name: "Home Lifts", desc: "We install premium home lifts that combine convenience with modern aesthetics for luxury living.", image: "/Service-Images/home-lifts.webp" },
+      { name: "Swimming Pools", desc: "Redefine recreation with luxury swimming pools, designed for relaxation and built with precision.", image: "/Service-Images/swimming-pool.webp" },
+      { name: "Invisible Grills", desc: "Ensure safety without compromising style through invisible balcony grills with a clean, premium finish.", image: "/Service-Images/invisible-grill.webp" },
+      { name: "Pest Control", desc: "Protect your interiors with professional pest control services ensuring a hygienic and comfortable home.", image: "/Service-Images/pest-control.webp" },
     ]
   }
 ];
@@ -234,7 +234,7 @@ export const Services: React.FC = () => {
                           src={service.image}
                           alt={`${service.name} — Brightliv Interiors`}
                           loading="lazy"
-                          className="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                          className="w-full h-full object-cover  opacity-100 mix-blend-multiply group-hover:scale-110 transition-all duration-700 ease-in-out"
                         />
                       </div>
 

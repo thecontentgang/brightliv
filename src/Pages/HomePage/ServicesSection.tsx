@@ -24,22 +24,22 @@ const serviceItems = [
   { 
     title: "Core Millwork", 
     desc: "Bespoke modular interiors that combine style and functionality. We design and craft custom cabinetry, shelving, and architectural woodwork tailored to your exact spatial requirements.",
-    img: "/api/placeholder/800/600?text=Core+Millwork"
+    img: "/core-millwork.png"
   },
   { 
     title: "Surface Finishes", 
     desc: "High-quality painting, stone cladding, and wallpaper applications. Our surface treatments define the mood of every room, bringing texture and depth to bare walls.",
-    img: "/api/placeholder/800/600?text=Surface+Finishes"
+    img: "/surface-finishes.png"
   },
   { 
     title: "Luxury Textiles", 
     desc: "Custom upholstery, long curtains, and sophisticated window treatments. We source premium fabrics to soften acoustics and elevate the tactile experience of your home.",
-    img: "/api/placeholder/800/600?text=Luxury+Textiles"
+    img: "/luxury-textiles.png"
   },
   { 
     title: "Specialized Tech", 
     desc: "Cinematic home theaters, automated lifts, and precision smart home installations. We integrate modern convenience invisibly into timeless design.",
-    img: "/api/placeholder/800/600?text=Specialized+Tech"
+    img: "/specialized-tech.png"
   },
 ];
 

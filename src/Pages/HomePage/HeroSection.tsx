@@ -17,7 +17,7 @@ interface GalleryCard {
 const cards: GalleryCard[] = [
   {
     id: 'villas',
-    image: '/gallery/villa.jpg',
+    image: '/hero/villa.png',
     title: 'Luxury Villas',
     subtitle: 'Timeless Elegance',
     icon: <Home size={16} />,
@@ -27,7 +27,7 @@ const cards: GalleryCard[] = [
   },
   {
     id: 'interior',
-    image: '/gallery/interior.jpg',
+    image: '/hero/interior-design.png',
     title: 'Interior Design',
     subtitle: 'Where Comfort Meets Style',
     icon: <Sofa size={16} />,
@@ -37,7 +37,7 @@ const cards: GalleryCard[] = [
   },
   {
     id: 'architecture',
-    image: '/gallery/architecture.jpg',
+    image: '/hero/architecture.png',
     title: 'Architecture',
     subtitle: 'Innovative & Functional',
     icon: <Building2 size={16} />,
@@ -47,7 +47,7 @@ const cards: GalleryCard[] = [
   },
   {
     id: 'commercial',
-    image: '/gallery/commercial.jpg',
+    image: '/hero/commercial.png',
     title: 'Commercial Spaces',
     subtitle: 'Built for Business',
     icon: <Briefcase size={16} />,
@@ -57,7 +57,7 @@ const cards: GalleryCard[] = [
   },
   {
     id: 'custom',
-    image: '/gallery/custom.jpg',
+    image: '/hero/custom.png',
     title: 'Custom Solutions',
     subtitle: 'Tailored to You',
     icon: <Box size={16} />,

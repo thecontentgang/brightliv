@@ -11,13 +11,16 @@ import { Contact } from './Pages/ContactPage';
 import { Footer } from './components/Footer';
 import { Portfolio } from './Pages/ProjectsPage';
 import { Services } from './Pages/ServicesPage';
+import ScrollToTop from './components/ScrollToTop';
+import { SocialMediaBar } from './components/SocialMediaBar';
 
 const App: React.FC = () => {
   return (
     <Router>
       {/* Navbar sits outside of Routes so it stays on screen during navigation */}
       <Navbar />
-      
+      <ScrollToTop />
+      <SocialMediaBar />
       {/* Routes determine which component renders based on the URL */}
       <Routes>
         <Route path="/" element={<Home />} />

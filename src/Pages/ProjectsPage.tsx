@@ -8,16 +8,21 @@ const OG_IMAGE = `${SITE_URL}/og-portfolio.jpg`; // ← 1200x630 image, distinct
 // --- PROJECT DATA ---
 const projects = [
   {
-    id: 1,
-    title: "The Heritage Townhouse",
-    description: "A comprehensive historical restoration on the Upper East Side, blending 19th-century architectural preservation with contemporary, minimalist interior formatting.",
-    images: [
-      "/api/placeholder/800/600?text=Townhouse+Entry",
-      "/api/placeholder/800/600?text=Townhouse+Living",
-      "/api/placeholder/800/600?text=Townhouse+Staircase",
-      "/api/placeholder/800/600?text=Townhouse+Kitchen",
-    ]
-  },
+  id: 1,
+  title: "ASBL 3BHK",
+  description:
+    "A premium 3BHK residence thoughtfully designed with modern aesthetics, bespoke interiors, and functional living spaces. Every detail reflects a seamless blend of luxury, comfort, and timeless craftsmanship.",
+  images: [
+    "/ASBL/fifteen.jpeg",
+    "/ASBL/fourteen.jpeg",
+    "/ASBL/nine.jpeg",
+    "/ASBL/six.jpeg",
+    "/ASBL/seven.jpeg",
+    "/ASBL/one.jpeg",
+    "/ASBL/three.jpeg",
+    "/ASBL/five.jpeg",
+  ]
+},
   {
     id: 2,
     title: "Coastal Retreat",
@@ -147,7 +152,7 @@ const AutoScrollGallery: React.FC<{
                 src={img} 
                 alt={altText}
                 loading="lazy"
-                className="w-full h-full object-cover grayscale mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover  mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
               />
               {/* Hover Overlay Icon */}
               <div className="absolute inset-0 bg-[#704f62]/0 group-hover:bg-[#704f62]/20 transition-colors duration-300 flex items-center justify-center">
