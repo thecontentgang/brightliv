@@ -4,12 +4,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface InquiryModalProps {
     isOpen: boolean;
     onClose: () => void;
+    /** Pre-fills the service dropdown when opened from a specific service card's "Book Now" button. */
+    initialService?: string;
 }
 
-export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose }) => {
+export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, initialService = "" }) => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedService, setSelectedService] = useState("");
+    const [selectedService, setSelectedService] = useState(initialService);
+
+    // Tracks the isOpen value we last adjusted state for. Comparing during render
+    // (rather than in a useEffect) is React's recommended way to derive state from
+    // a prop change — it avoids the extra commit-then-effect-then-re-render pass
+    // that set-state-in-effect causes, while still letting the person freely
+    // change the dropdown afterwards without it snapping back.
+    const [lastIsOpen, setLastIsOpen] = useState(isOpen);
+    if (isOpen !== lastIsOpen) {
+        setLastIsOpen(isOpen);
+        if (isOpen) {
+            setSelectedService(initialService);
+        }
+    }
 
     const servicesList = [
         "False Ceiling",
@@ -66,9 +81,9 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose }) =
                                 <p className="text-xs tracking-[0.2em] uppercase opacity-70 mb-2 font-bold text-[#FAF9F6]">
                                     Consultation
                                 </p>
-                                <h2 className="text-[32px] md:text-[40px] cooper-light text-[#FAF9F6] leading-tight">
+                                <p className="text-[32px] md:text-[40px] cooper-light text-[#FAF9F6] leading-tight">
                                     Request a callback.
-                                </h2>
+                                </p>
                             </div>
 
                             {/* Modal Form */}
@@ -76,7 +91,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose }) =
                                 className="flex flex-col gap-6 relative z-10"
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    console.log("Form Submitted");
+                                    console.log("Form Submitted", { selectedService });
                                     onClose();
                                 }}
                             >

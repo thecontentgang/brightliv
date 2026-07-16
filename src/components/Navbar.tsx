@@ -56,10 +56,10 @@ export const Navbar: React.FC = () => {
         
         {/* --- LEFT SIDE --- */}
         <div className="hidden md:flex flex-1 items-center justify-center lg:space-x-10 md:space-x-6 text-[16px] font-semibold tracking-wide">
-          <MotionLink to="/services" whileHover={{ y: -2 }} className="transition-colors hover:text-[var(--color-heading)] whitespace-nowrap">
+          <MotionLink to="/services" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
             Services
           </MotionLink>
-          <MotionLink to="/projects" whileHover={{ y: -2 }} className="transition-colors hover:text-[var(--color-heading)] whitespace-nowrap">
+          <MotionLink to="/projects" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
             Projects
           </MotionLink>
         </div>
@@ -79,10 +79,10 @@ export const Navbar: React.FC = () => {
 
         {/* --- RIGHT SIDE --- */}
         <div className="hidden md:flex flex-1 items-center justify-center lg:space-x-10 md:space-x-6 text-[16px] font-semibold tracking-wide">
-          <MotionLink to="/about" whileHover={{ y: -2 }} className="transition-colors hover:text-[var(--color-heading)] whitespace-nowrap">
+          <MotionLink to="/about" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
             About BrightLiv
           </MotionLink>
-          <MotionLink to="/contact" whileHover={{ y: -2 }} className="transition-colors hover:text-[var(--color-heading)] whitespace-nowrap">
+          <MotionLink to="/contact" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
             Contact
           </MotionLink>
           <MotionLink 

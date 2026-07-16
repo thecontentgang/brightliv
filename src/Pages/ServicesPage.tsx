@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { InquiryModal } from '../components/InquiryModal'; // ← adjust this path to wherever InquiryModal actually lives
 
 const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
 const OG_IMAGE = `${SITE_URL}/og-services.jpg`; // ← 1200x630 image, distinct from other pages
@@ -56,9 +57,6 @@ const serviceCategories = [
   }
 ];
 
-// Flatten all services into a single ItemList for structured data (order preserved)
-// const allServicesFlat = serviceCategories.flatMap((cat) => cat.services);
-
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -95,7 +93,6 @@ const structuredData = {
   },
 };
 
-// Breadcrumb structured data
 const breadcrumbData = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -117,6 +114,14 @@ const staggerContainer = {
 };
 
 export const Services: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>("");
+
+  const openInquiry = (serviceName: string) => {
+    setSelectedService(serviceName);
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <Helmet>
@@ -221,7 +226,7 @@ export const Services: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Service Cards Grid (Updated with Images) */}
+                {/* Service Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                   {category.services.map((service, index) => (
                     <motion.div
@@ -234,37 +239,41 @@ export const Services: React.FC = () => {
                           src={service.image}
                           alt={`${service.name} — Brightliv Interiors`}
                           loading="lazy"
-                          className="w-full h-full object-cover  opacity-100 mix-blend-multiply group-hover:scale-110 transition-all duration-700 ease-in-out"
+                          className="w-full h-full object-cover opacity-100 mix-blend-multiply group-hover:scale-110 transition-all duration-700 ease-in-out"
                         />
                       </div>
 
                       {/* Text & Interaction Container */}
                       <div className="p-8 flex flex-col flex-grow justify-between bg-[#FAF9F6] group-hover:bg-[#704f62] group-hover:text-[#FAF9F6] transition-colors duration-500">
                         <div>
-                          <h3 className="text-[24px] cooper-light mb-3">{service.name}</h3>
+                          <p className="text-[24px] cooper-light mb-3">{service.name}</p>
                           <p className="font-light opacity-80 text-sm leading-relaxed">
                             {service.desc}
                           </p>
                         </div>
 
-                       {/* Minimalist 'Expanding Line' Interaction */}
-                      <div className="mt-8 flex items-center gap-4 cursor-pointer overflow-hidden">
-                        {/* Expanding Line */}
-                        <div className="w-8 h-[1px] bg-[#704f62]/40 group-hover:w-16 group-hover:bg-[#FAF9F6] transition-all duration-500 ease-in-out"></div>
-
-                        {/* Text */}
-                        <span className="text-xs tracking-[0.2em] uppercase font-bold opacity-80 group-hover:opacity-100 transition-opacity">
-                          Book Now
-                        </span>
-
-                        {/* Sliding Arrow (Fades in and slides right) */}
-                        <svg
-                          className="w-4 h-4 transform -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
-                          fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        {/* Book Now — a real button, styled as a pill that flips
+                            with the card (outlined on cream, solid on the maroon
+                            hover state) instead of a bare underline-and-arrow row. */}
+                        <button
+                          type="button"
+                          onClick={() => openInquiry(service.name)}
+                          aria-label={`Book a consultation for ${service.name}`}
+                          className="mt-8 inline-flex items-center justify-center gap-2 self-start px-5 py-2.5 rounded-full text-xs tracking-[0.15em] uppercase font-bold
+                                     border border-[#704f62]/30 text-[#704f62]
+                                     group-hover:border-[#FAF9F6] group-hover:text-[#FAF9F6]
+                                     hover:bg-[#704f62] hover:text-[#FAF9F6]
+                                     group-hover:hover:bg-[#FAF9F6] group-hover:hover:text-[#704f62]
+                                     transition-all duration-300"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                      </div>
+                          Book Now
+                          <svg
+                            className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                          </svg>
+                        </button>
                       </div>
 
                     </motion.div>
@@ -279,26 +288,44 @@ export const Services: React.FC = () => {
         {/* 3. B2B / ENTERPRISE BANNER (Unchanged) */}
         <section className="w-full px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto mt-32">
           <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={cardVariant}
-            className="w-full bg-[#704f62] text-[#FAF9F6] rounded-[2.5rem] p-10 md:p-16 lg:p-20 flex flex-col lg:flex-row justify-between items-center gap-12 shadow-xl relative overflow-hidden"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={cardVariant}
+            className="relative w-full text-[#FAF9F6] rounded-[2.5rem] p-10 md:p-16 lg:p-20 flex flex-col lg:flex-row justify-between items-center gap-12 shadow-xl overflow-hidden group"
           >
-            {/* Decorative Background Element */}
-            <div className="absolute -right-24 -top-24 w-96 h-96 bg-[#FAF9F6]/5 rounded-full blur-3xl pointer-events-none"></div>
+            {/* ── Background Image & Overlays ── */}
+            <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+              <img
+                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000&auto=format&fit=crop"
+                alt="High Rise Architecture"
+                className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#704f62]/85 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
 
+            {/* ── Content ── */}
             <div className="w-full lg:w-2/3 flex flex-col gap-6 relative z-10 text-center lg:text-left">
-              <p className="text-sm tracking-[0.2em] uppercase opacity-70">Enterprise & Developer Solutions</p>
-              <h2 className="text-[36px] md:text-[56px] cooper-light leading-[1.1]">
+              <p className="text-sm tracking-[0.2em] uppercase text-[#FAF9F6]/90 font-bold drop-shadow-md">
+                Enterprise & Developer Solutions
+              </p>
+              <p className="text-[36px] md:text-[56px] cooper-light text-white leading-[1.1] drop-shadow-lg">
                 B2B Services for High Rise Apartments & Villas
-              </h2>
-              <p className="text-lg font-light opacity-90 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              </p>
+              <p className="text-lg font-light opacity-90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-md">
                 We offer end-to-end interior solutions for builders, commercial developers, and luxury villa properties. Partner with BrightLiv to ensure timely delivery, scaleable execution, and consistent quality across your high-volume projects.
               </p>
             </div>
 
+            {/* ── CTA Button ── */}
             <div className="w-full lg:w-1/3 flex justify-center lg:justify-end relative z-10">
-              <button className="px-8 py-5 bg-[#FAF9F6] text-[#704f62] rounded-full text-lg font-medium tracking-wide hover:scale-105 transition-transform duration-300 shadow-lg flex items-center gap-3">
+              <button
+                onClick={() => openInquiry("B2B / Builder Services")}
+                className="px-8 py-5 bg-[#FAF9F6] text-[#704f62] rounded-full text-lg font-bold tracking-wide hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-3"
+              >
                 Partner With Us
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
               </button>
@@ -306,6 +333,12 @@ export const Services: React.FC = () => {
           </motion.div>
         </section>
 
+        {/* INQUIRY MODAL — opened by any "Book Now" click, pre-filled with that service */}
+        <InquiryModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          initialService={selectedService}
+        />
       </main>
     </>
   );

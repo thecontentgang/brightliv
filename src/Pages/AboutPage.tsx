@@ -330,21 +330,40 @@ export const About: React.FC = () => {
         
         {/* 7. CTA CARD */}
         <section className="w-full py-32 px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={cardVariant}
-            className="w-full bg-[var(--color-primary)] text-[var(--color-background)] rounded-[40px] p-12 md:p-20 text-center shadow-2xl"
-          >
-            <h2 className="text-[40px] md:text-[56px] cooper-light mb-6">
-              Let's build your sanctuary.
-            </h2>
-            <p className="text-lg md:text-xl font-light opacity-80 max-w-2xl mx-auto mb-10 text-[var(--color-background)]/80">
-              Whether it's a single room refresh or a complete architectural overhaul, our team is ready to bring your vision to life.
-            </p>
-            <button className="px-10 py-5 bg-[var(--color-background)] text-[var(--color-primary)] rounded-full text-lg font-medium tracking-wide hover:scale-105 transition-transform duration-300 shadow-lg">
-              Inquire Now
-            </button>
-          </motion.div>
-        </section>
+  <motion.div
+    initial="hidden" 
+    whileInView="visible" 
+    viewport={{ once: true, margin: "-50px" }} 
+    variants={cardVariant}
+    className="relative w-full text-[var(--color-background)] rounded-[40px] p-12 md:p-20 text-center shadow-2xl overflow-hidden group"
+  >
+    {/* ── Background Image & Overlays ── */}
+    <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+      <img 
+        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2000&auto=format&fit=crop" 
+        alt="Interior Sanctuary" 
+        className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+      />
+      {/* Brand-tinted overlay for readability using your primary color */}
+      <div className="absolute inset-0 bg-[var(--color-primary)]/80 mix-blend-multiply" />
+      {/* Secondary dark overlay to ensure contrast */}
+      <div className="absolute inset-0 bg-black/20" />
+    </div>
+
+    {/* ── Content ── */}
+    <div className="relative z-10 flex flex-col items-center">
+      <p className="text-[40px] md:text-[56px] text-white cooper-light mb-6 drop-shadow-lg">
+        Let's build your sanctuary.
+      </p>
+      <p className="text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 text-[var(--color-background)]/90 drop-shadow-md">
+        Whether it's a single room refresh or a complete architectural overhaul, our team is ready to bring your vision to life.
+      </p>
+      <button className="px-10 py-5 bg-[var(--color-background)] text-[var(--color-primary)] rounded-full text-lg font-bold tracking-wide hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+        Inquire Now
+      </button>
+    </div>
+  </motion.div>
+</section>
 
       </main>
     </>

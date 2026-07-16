@@ -64,7 +64,7 @@ export const ServicesSection: React.FC = () => {
           <h2 className="text-[48px] md:text-[64px] cooper-light leading-[1.05] mb-8">
             Our Expertise.
           </h2>
-          <p className="text-lg opacity-80 font-light max-w-xl mx-auto">
+          <p className="text-lg opacity-80 font-light max-w-xl mx-auto text-black">
             We provide end-to-end interior solutions, combining structural integrity with refined aesthetic sensibilities.
           </p>
         </motion.div>
@@ -119,7 +119,7 @@ export const ServicesSection: React.FC = () => {
                     {item.title}
                   </h3>
                   
-                  <p className={`text-base md:text-lg font-light opacity-80 leading-relaxed mb-10 max-w-md ${
+                  <p className={`text-base text-black md:text-lg font-light opacity-80 leading-relaxed mb-10 max-w-md ${
                     isReversed ? 'md:ml-auto' : ''
                   }`}>
                     {item.desc}

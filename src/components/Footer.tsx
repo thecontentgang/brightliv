@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
         
         {/* Left: Instagram Follow (Removed w-full so it stays a compact pill in the center) */}
         <a 
-          href="#" 
+          href="https://www.instagram.com/brightliv_/" 
           className="flex items-center justify-center gap-3 bg-[#FAF9F6] text-[#704f62] px-6 py-3 rounded-full hover:scale-105 transition-transform duration-300 w-fit"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

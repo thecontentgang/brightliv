@@ -27,45 +27,51 @@ const stats = [
 
 export const WhyChooseUs: React.FC = () => {
   return (
-    // Section uses the primary deep plum color to create high contrast for the light glass cards
-    <section className="w-full bg-[var(--color-primary)] py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+    <section className="w-full bg-[var(--color-background)] py-24 md:py-32 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
         
-        {/* Optional Context Header */}
+        {/* Section Header */}
         <motion.div 
           initial="hidden" 
           whileInView="visible" 
           viewport={{ once: true, margin: "-50px" }}
           variants={fadeUp}
-          className="flex justify-center mb-16"
+          className="flex flex-col items-center text-center mb-12 md:mb-20"
         >
-          <span className="text-xs tracking-[0.3em] uppercase font-bold text-[var(--color-background)]/70">
-            BrightLiv By The Numbers
+          <span className="text-xs tracking-[0.25em] uppercase font-bold text-[var(--color-accent)] mb-4">
+            Bright Arena By The Numbers
           </span>
+          <h2 className="text-[32px] md:text-[44px] cooper-light leading-[1.1] text-[var(--color-heading)] max-w-2xl">
+            A legacy built on <br className="hidden sm:block" />
+            <span className="italic text-[var(--color-primary)]">precision and trust.</span>
+          </h2>
         </motion.div>
 
-        {/* 4-Column Grid for Stats */}
+        {/* 4-Column Grid for Desktop, 2-Column Grid for Mobile */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={staggerContainer}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8"
         >
           {stats.map((stat, index) => (
             <motion.div 
               key={index}
               variants={fadeUp}
-              // Elevated glass-like cards using slight opacity and a thin border based on the light background variable
-              className="bg-[var(--color-background)]/5 border border-[var(--color-background)]/10 rounded-[2rem] p-10 md:p-14 flex flex-col items-center justify-center text-center transition-all duration-500 hover:-translate-y-2 hover:bg-[var(--color-background)]/10"
+              // Adjusted padding (p-6) for smaller mobile screens
+              className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-10 md:p-12 flex flex-col items-center justify-center text-center transition-all duration-500 hover:-translate-y-2 shadow-[0_8px_30px_rgba(107,83,97,0.06)] hover:shadow-[0_20px_40px_rgba(107,83,97,0.12)] border border-[var(--color-primary)]/5 relative overflow-hidden group"
             >
-              {/* Massive Stat Value - Light text to pop against the dark background */}
-              <h3 className="text-5xl md:text-6xl lg:text-7xl cooper-light text-[var(--color-background)] mb-4">
+              {/* Subtle hover accent line at the bottom of the card */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-[var(--color-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+              {/* Scaled down text (text-4xl) on mobile so it fits the 2x2 layout */}
+              <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl cooper-light text-[var(--color-primary)] mb-2 sm:mb-4">
                 {stat.value}
               </h3>
               
-              {/* Clean Uppercase Label - Slightly faded for visual hierarchy */}
-              <p className="text-sm md:text-xs lg:text-sm font-medium tracking-[0.2em] uppercase text-[var(--color-background)]/70">
+              {/* Scaled down text size and tracking on mobile */}
+              <p className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.1em] sm:tracking-[0.2em] uppercase text-[var(--color-body)]">
                 {stat.label}
               </p>
             </motion.div>

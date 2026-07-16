@@ -3,10 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { Hero } from './HeroSection';
 import { About } from './AboutSection';
 import { ServicesSection } from './ServicesSection';
-import { PortfolioSection } from './PortfolioSection';
+// import { PortfolioSection } from './PortfolioSection';
 import { WhyChooseUs } from './WhyChooseUs';
 import { TestimonialSection } from './TestimonialSection';
 import { CTASection } from './CTASection';
+import { FeaturedProjectSection } from './ProjectsSection';
 
 
 const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
@@ -105,7 +106,8 @@ export const Home: React.FC = () => {
         <About />
         
         <ServicesSection />
-        <PortfolioSection />
+        <FeaturedProjectSection />
+        {/* <PortfolioSection /> */}
         <WhyChooseUs />
         <TestimonialSection />
         <CTASection />

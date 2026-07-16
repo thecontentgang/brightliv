@@ -43,7 +43,7 @@ const cardVariants: Variants = {
 
 export const About: React.FC = () => {
   return (
-    <section className="w-full bg-[var(--color-background)] text-[var(--color-body)] py-24 md:py-32 overflow-hidden">
+    <section className="w-full bg-white text-[var(--color-body)] py-24 md:py-32 overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
         
         {/* Left Side: Typography & CTA */}
@@ -57,7 +57,7 @@ export const About: React.FC = () => {
             {/* Pill Badge */}
             <div className="inline-block border border-[var(--color-heading)]/20 rounded-full px-6 py-2 mb-8 bg-transparent">
               <span className="text-xs tracking-[0.2em] uppercase font-bold text-[var(--color-heading)]/80">
-                The Studio
+                About Brightliv
               </span>
             </div>
             

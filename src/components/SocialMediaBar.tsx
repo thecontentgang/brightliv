@@ -5,7 +5,7 @@ export const SocialMediaBar: React.FC = () => {
   const socialLinks = [
     {
       name: 'Phone',
-      url: 'tel:+919666065006', // Replace with your number
+      url: 'tel:+919000607018', // Replace with your number
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -14,7 +14,7 @@ export const SocialMediaBar: React.FC = () => {
     },
     {
       name: 'WhatsApp',
-      url: 'https://wa.me/919666065006',
+      url: 'https://wa.me/919000607018',
       icon: (
         <svg 
           className="w-5 h-5" 
@@ -27,7 +27,7 @@ export const SocialMediaBar: React.FC = () => {
     },
     {
       name: 'Instagram',
-      url: 'https://instagram.com/yourprofile', // Replace with your profile
+      url: 'https://www.instagram.com/brightliv_/', // Replace with your profile
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth={1.5} />
@@ -38,7 +38,7 @@ export const SocialMediaBar: React.FC = () => {
     },
     {
       name: 'YouTube',
-      url: 'https://youtube.com/yourchannel', // Replace with your channel
+      url: 'https://www.youtube.com/@Brightlivinteriors', // Replace with your channel
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" />

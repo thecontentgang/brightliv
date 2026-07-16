@@ -61,7 +61,7 @@ export const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col items-center overflow-hidden bg-[#F9F7F3]">
+    <section className="relative w-full min-h-[100dvh] flex flex-col items-center overflow-hidden bg-white">
       
       {/* SVG Definitions for different screen curves */}
       <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
@@ -108,7 +108,7 @@ export const Hero: React.FC = () => {
             </Link>
             <Link
               to="/services"
-              className="bg-[#F3EBE0] text-[#6B5361] border border-[#6B5361]/10 px-5 py-2.5 rounded-full shadow-sm text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
+              className="bg-white text-[#6B5361] border border-[#6B5361]/10 px-5 py-2.5 rounded-full shadow-sm text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
             >
               Our Services
             </Link>
@@ -193,7 +193,7 @@ export const Hero: React.FC = () => {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/services"
-                className="bg-[#F3EBE0] text-[#6B5361] border border-[#6B5361]/10 px-8 py-3.5 rounded-full shadow-sm hover:bg-[#ebe1d4] transition-colors text-[15px] font-medium whitespace-nowrap"
+                className="bg-white text-[#6B5361] border border-[#6B5361]/10 px-8 py-3.5 rounded-full shadow-sm hover:bg-gray-50 transition-colors text-[15px] font-medium whitespace-nowrap"
               >
                 Our Services
               </Link>
@@ -209,7 +209,7 @@ export const Hero: React.FC = () => {
           className="relative z-10 w-full flex-1 flex flex-col -mt-12 lg:-mt-24"
         >
           <div
-            className="relative flex gap-2 flex-1 w-full min-h-[55vh] lg:min-h-[70vh] shadow-2xl bg-[#F9F7F3]"
+            className="relative flex gap-2 flex-1 w-full min-h-[55vh] lg:min-h-[70vh] shadow-2xl bg-white"
             style={{ clipPath: 'url(#heroArcClipDesktop)' }}
           >
             {cards.map((card, i) => (

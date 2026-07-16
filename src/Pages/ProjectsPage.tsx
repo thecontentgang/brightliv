@@ -1,101 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CTASection } from './HomePage/CTASection';
 
-const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
-const OG_IMAGE = `${SITE_URL}/og-portfolio.jpg`; // ← 1200x630 image, distinct from other pages
+const SITE_URL = 'https://www.brightliv.com';
+// const OG_IMAGE = `${SITE_URL}/og-portfolio.jpg`;
 
 // --- PROJECT DATA ---
 const projects = [
   {
-  id: 1,
-  title: "ASBL 3BHK",
-  description:
-    "A premium 3BHK residence thoughtfully designed with modern aesthetics, bespoke interiors, and functional living spaces. Every detail reflects a seamless blend of luxury, comfort, and timeless craftsmanship.",
-  images: [
-    "/ASBL/fifteen.jpeg",
-    "/ASBL/fourteen.jpeg",
-    "/ASBL/nine.jpeg",
-    "/ASBL/six.jpeg",
-    "/ASBL/seven.jpeg",
-    "/ASBL/one.jpeg",
-    "/ASBL/three.jpeg",
-    "/ASBL/five.jpeg",
-  ]
-},
-  {
-    id: 2,
-    title: "Coastal Retreat",
-    description: "A ground-up residential construction designed to integrate seamlessly with its natural surroundings, featuring locally sourced timber and expansive glass facades.",
+    id: 1,
+    title: "ASBL Residence",
+    description:
+      "A premium 3BHK residence thoughtfully designed with modern aesthetics, bespoke interiors, and functional living spaces. Every detail reflects a seamless blend of luxury, comfort, and timeless craftsmanship.",
     images: [
-      "/api/placeholder/800/600?text=Coastal+Exterior",
-      "/api/placeholder/800/600?text=Coastal+Lounge",
-      "/api/placeholder/800/600?text=Coastal+Bedroom",
-      "/api/placeholder/800/600?text=Coastal+Terrace",
+      "/ASBL/fifteen.jpeg",
+      "/ASBL/fourteen.jpeg",
+      "/ASBL/nine.jpeg",
+      "/ASBL/six.jpeg",
+      "/ASBL/seven.jpeg",
+      "/ASBL/one.jpeg",
+      "/ASBL/three.jpeg",
+      "/ASBL/five.jpeg",
     ]
   },
-  {
-    id: 3,
-    title: "The Glass Pavilion",
-    description: "A precise modernization of a mid-century architectural structure. Our team prioritized thermal efficiency and acoustic privacy without compromising original sightlines.",
-    images: [
-      "/api/placeholder/800/600?text=Pavilion+View",
-      "/api/placeholder/800/600?text=Pavilion+Dining",
-      "/api/placeholder/800/600?text=Pavilion+Study",
-      "/api/placeholder/800/600?text=Pavilion+Bath",
-    ]
-  },
-  {
-    id: 4,
-    title: "Avenue Penthouse",
-    description: "An urban luxury reconfiguration focused on maximizing entertaining capacity. Highlights include bespoke Italian cabinetry and extensive custom plaster finishing.",
-    images: [
-      "/api/placeholder/800/600?text=Penthouse+Foyer",
-      "/api/placeholder/800/600?text=Penthouse+Bar",
-      "/api/placeholder/800/600?text=Penthouse+Suite",
-      "/api/placeholder/800/600?text=Penthouse+Gallery",
-    ]
-  }
 ];
 
-// Structured Data: Portfolio as a CollectionPage of CreativeWork case studies
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Brightliv Interiors Portfolio',
-  url: `${SITE_URL}/portfolio`,
-  description:
-    'An archive of Brightliv Interiors\' defining residential and commercial projects, showcasing structural integrity, functional planning, and timeless aesthetic execution.',
-  mainEntity: {
-    '@type': 'ItemList',
-    itemListElement: projects.map((project, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'CreativeWork',
-        name: project.title,
-        description: project.description,
-        image: `${SITE_URL}${project.images[0]}`,
-        creator: {
-          '@type': 'Organization',
-          name: 'Brightliv Interiors',
-        },
-      },
-    })),
-  },
-};
-
-// Breadcrumb structured data
-const breadcrumbData = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-    { '@type': 'ListItem', position: 2, name: 'Portfolio', item: `${SITE_URL}/portfolio` },
-  ],
-};
-
-// Framer Motion Variants
+// --- Framer Motion Variants ---
 const cardVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -113,48 +44,46 @@ const staggerContainer = {
   }
 };
 
+// Lightbox state shape: which project's images we're browsing + current index
+interface LightboxState {
+  images: string[];
+  title: string;
+  index: number;
+}
+
 // --- AUTO SCROLLING GALLERY COMPONENT ---
 const AutoScrollGallery: React.FC<{ 
   images: string[]; 
   title: string; 
-  onImageClick: (img: string, alt: string) => void 
+  onImageClick: (images: string[], title: string, index: number) => void 
 }> = ({ images, title, onImageClick }) => {
-  // We duplicate the array to create a seamless infinite loop
   const extendedImages = [...images, ...images];
 
   return (
     <div className="relative w-full overflow-hidden -mx-6 px-6 md:mx-0 md:px-0">
-      
-      {/* Optional: Soft gradient edges to make the scrolling fade in/out beautifully on desktop */}
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none hidden md:block"></div>
       <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none hidden md:block"></div>
 
-      {/* The scrolling track */}
       <motion.div 
         className="flex gap-4 md:gap-6 w-max pb-6"
-        // Animates from 0 to exactly halfway (since we doubled the array, this creates a perfect loop)
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ 
-          repeat: Infinity, 
-          ease: "linear", 
-          duration: 25 // Increase this number to make it scroll slower, decrease to make it faster
-        }}
+        transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
       >
         {extendedImages.map((img, index) => {
-          const altText = `${title} — view ${(index % images.length) + 1}`;
+          const realIndex = index % images.length;
+          const altText = `${title} — view ${realIndex + 1}`;
           return (
             <div 
               key={index}
-              onClick={() => onImageClick(img, altText)}
+              onClick={() => onImageClick(images, title, realIndex)}
               className="shrink-0 w-[85vw] sm:w-[60vw] md:w-[400px] lg:w-[500px] aspect-[4/3] rounded-2xl overflow-hidden cursor-zoom-in relative group bg-gray-200"
             >
               <img 
                 src={img} 
                 alt={altText}
                 loading="lazy"
-                className="w-full h-full object-cover  mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Hover Overlay Icon */}
               <div className="absolute inset-0 bg-[#704f62]/0 group-hover:bg-[#704f62]/20 transition-colors duration-300 flex items-center justify-center">
                 <div className="bg-[#FAF9F6] text-[#704f62] p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,71 +100,53 @@ const AutoScrollGallery: React.FC<{
 };
 
 export const Portfolio: React.FC = () => {
-  // State to handle the lightbox/gallery view
-  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
+
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+
+  const goPrev = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setLightbox((prev) => {
+      if (!prev) return prev;
+      const nextIndex = (prev.index - 1 + prev.images.length) % prev.images.length;
+      return { ...prev, index: nextIndex };
+    });
+  }, []);
+
+  const goNext = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setLightbox((prev) => {
+      if (!prev) return prev;
+      const nextIndex = (prev.index + 1) % prev.images.length;
+      return { ...prev, index: nextIndex };
+    });
+  }, []);
+
+  // Keyboard navigation while the lightbox is open
+  useEffect(() => {
+    if (!lightbox) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goPrev();
+      else if (e.key === 'ArrowRight') goNext();
+      else if (e.key === 'Escape') closeLightbox();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightbox, goPrev, goNext, closeLightbox]);
 
   return (
     <>
       <Helmet>
-        {/* Primary Meta Tags */}
         <title>Portfolio | Brightliv Interiors — Selected Projects</title>
-        <meta
-          name="description"
-          content="Explore Brightliv Interiors' portfolio: The Heritage Townhouse, Coastal Retreat, The Glass Pavilion, and Avenue Penthouse. Residential and commercial design case studies."
-        />
-        <meta
-          name="keywords"
-          content="Brightliv Interiors portfolio, interior design case studies, luxury residential projects, architecture portfolio Hyderabad, townhouse restoration, penthouse design"
-        />
-        <meta name="author" content="Brightliv Interiors" />
-        <meta name="robots" content="index, follow" />
+        <meta name="description" content="Explore Brightliv Interiors' portfolio." />
         <link rel="canonical" href={`${SITE_URL}/portfolio`} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${SITE_URL}/portfolio`} />
-        <meta property="og:site_name" content="Brightliv Interiors" />
-        <meta
-          property="og:title"
-          content="Portfolio | Brightliv Interiors — Selected Projects"
-        />
-        <meta
-          property="og:description"
-          content="An archive of our defining residential and commercial projects — structural integrity, functional planning, and timeless aesthetic execution."
-        />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_IN" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={`${SITE_URL}/portfolio`} />
-        <meta
-          name="twitter:title"
-          content="Portfolio | Brightliv Interiors — Selected Projects"
-        />
-        <meta
-          name="twitter:description"
-          content="An archive of our defining residential and commercial projects — structural integrity, functional planning, and timeless aesthetic execution."
-        />
-        <meta name="twitter:image" content={OG_IMAGE} />
-
-        {/* Theme */}
-        <meta name="theme-color" content="#FAF9F6" />
-
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-32">
+      <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-24">
         
-        {/* 1. HEADER SECTION (Centered) */}
+        {/* HEADER SECTION */}
         <section className="w-full pt-32 md:pt-48 pb-16 px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -251,88 +162,102 @@ export const Portfolio: React.FC = () => {
             <h1 className="text-[48px] md:text-[72px] lg:text-[84px] leading-[1.05] cooper-light">
               Our Portfolio.
             </h1>
-            <p className="text-lg font-light opacity-80 mt-4 leading-relaxed">
-              An archive of our defining residential and commercial projects. Each case study represents our commitment to structural integrity, functional planning, and timeless aesthetic execution.
-            </p>
           </motion.div>
         </section>
 
-        {/* 2. PROJECT CARDS FEED */}
+        {/* PROJECT CARDS FEED */}
         <section className="w-full px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
-          <motion.div 
-            initial="hidden" animate="visible" variants={staggerContainer}
-            className="flex flex-col gap-16 md:gap-24"
-          >
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col gap-16 md:gap-24">
             {projects.map((project) => (
-              <motion.div 
-                key={project.id} 
-                variants={cardVariant}
-                className="w-full bg-[#FAF9F6] border border-[#704f62]/20 rounded-[2rem] p-6 md:p-10 lg:p-12 shadow-sm flex flex-col gap-8"
-              >
-                
-                {/* Card Header: Title & Description */}
+              <motion.div key={project.id} variants={cardVariant} className="w-full bg-[#FAF9F6] border border-[#704f62]/20 rounded-[2rem] p-6 md:p-10 lg:p-12 shadow-sm flex flex-col gap-8">
                 <div className="flex flex-col lg:flex-row justify-between gap-6 lg:gap-12 lg:items-end border-b border-[#704f62]/10 pb-8">
                   <div className="w-full lg:w-1/2 flex flex-col gap-2">
                     <span className="text-xs tracking-widest uppercase opacity-50 font-bold mb-2">Project 0{project.id}</span>
-                    <h2 className="text-[36px] md:text-[48px] cooper-light leading-tight">
-                      {project.title}
-                    </h2>
+                    <h2 className="text-[36px] md:text-[48px] cooper-light leading-tight">{project.title}</h2>
                   </div>
                   <div className="w-full lg:w-1/2">
-                    <p className="text-lg font-light opacity-80 leading-relaxed max-w-xl lg:ml-auto">
-                      {project.description}
-                    </p>
+                    <p className="text-lg font-light opacity-80 leading-relaxed max-w-xl lg:ml-auto">{project.description}</p>
                   </div>
                 </div>
-
-                {/* Card Body: Auto Scrolling Gallery Component */}
                 <AutoScrollGallery 
                   images={project.images} 
-                  title={project.title}
-                  onImageClick={(src, alt) => setSelectedImage({ src, alt })} 
+                  title={project.title} 
+                  onImageClick={(images, title, index) => setLightbox({ images, title, index })} 
                 />
-
               </motion.div>
             ))}
           </motion.div>
         </section>
 
-        {/* 3. FULLSCREEN GALLERY MODAL */}
+        {/* CTA SECTION */}
+        <CTASection />
+
+        {/* FULLSCREEN LIGHTBOX MODAL */}
         <AnimatePresence>
-          {selectedImage && (
+          {lightbox && (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#704f62]/95 backdrop-blur-md p-4 md:p-12 cursor-zoom-out"
-              onClick={() => setSelectedImage(null)}
+              onClick={closeLightbox}
             >
-              {/* Close Button */}
+              {/* Close button */}
               <button 
-                className="absolute top-6 right-6 md:top-10 md:right-10 text-[#FAF9F6] bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors"
-                onClick={() => setSelectedImage(null)}
+                className="absolute top-6 right-6 md:top-10 md:right-10 z-10 text-[#FAF9F6] bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors" 
+                onClick={closeLightbox}
+                aria-label="Close"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+
+              {/* Prev arrow */}
+              <button
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 text-[#FAF9F6] bg-white/10 hover:bg-white/20 p-3 md:p-4 rounded-full transition-colors"
+                onClick={goPrev}
+                aria-label="Previous image"
+              >
+                <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
 
-              {/* Expanded Image */}
-              <motion.img 
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
+              {/* Next arrow */}
+              <button
+                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 text-[#FAF9F6] bg-white/10 hover:bg-white/20 p-3 md:p-4 rounded-full transition-colors"
+                onClick={goNext}
+                aria-label="Next image"
+              >
+                <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {/* Image with crossfade between slides */}
+              <AnimatePresence mode="wait">
+                <motion.img 
+                  key={lightbox.index}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  src={lightbox.images[lightbox.index]}
+                  alt={`${lightbox.title} — view ${lightbox.index + 1}`}
+                  className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </AnimatePresence>
+
+              {/* Index indicator */}
+              <div 
+                className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 text-[#FAF9F6] text-sm tracking-wider bg-white/10 px-4 py-1.5 rounded-full"
                 onClick={(e) => e.stopPropagation()}
-              />
+              >
+                {lightbox.index + 1} / {lightbox.images.length}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
-
       </main>
     </>
   );
