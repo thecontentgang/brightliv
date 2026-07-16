@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Home, Sofa, Building2, Briefcase, Box } from 'lucide-react';
@@ -9,9 +9,6 @@ interface GalleryCard {
   title: string;
   subtitle: string;
   icon: React.ReactNode;
-  height: string;
-  cornerStyle: string;
-  rotate: string;
 }
 
 const cards: GalleryCard[] = [
@@ -21,9 +18,6 @@ const cards: GalleryCard[] = [
     title: 'Luxury Villas',
     subtitle: 'Timeless Elegance',
     icon: <Home size={16} />,
-    height: 'h-[220px] sm:h-[280px] md:h-[320px]',
-    cornerStyle: 'rounded-tr-[40px] md:rounded-tr-[80px]',
-    rotate: 'md:-rotate-2',
   },
   {
     id: 'interior',
@@ -31,9 +25,6 @@ const cards: GalleryCard[] = [
     title: 'Interior Design',
     subtitle: 'Where Comfort Meets Style',
     icon: <Sofa size={16} />,
-    height: 'h-[240px] sm:h-[320px] md:h-[380px]',
-    cornerStyle: 'rounded-t-[30px] md:rounded-t-[40px]',
-    rotate: 'md:-rotate-1',
   },
   {
     id: 'architecture',
@@ -41,9 +32,6 @@ const cards: GalleryCard[] = [
     title: 'Architecture',
     subtitle: 'Innovative & Functional',
     icon: <Building2 size={16} />,
-    height: 'h-[260px] sm:h-[360px] md:h-[440px]',
-    cornerStyle: 'rounded-t-[35px] md:rounded-t-[50px]',
-    rotate: 'rotate-0',
   },
   {
     id: 'commercial',
@@ -51,9 +39,6 @@ const cards: GalleryCard[] = [
     title: 'Commercial Spaces',
     subtitle: 'Built for Business',
     icon: <Briefcase size={16} />,
-    height: 'h-[240px] sm:h-[320px] md:h-[380px]',
-    cornerStyle: 'rounded-t-[30px] md:rounded-t-[40px]',
-    rotate: 'md:rotate-1',
   },
   {
     id: 'custom',
@@ -61,50 +46,50 @@ const cards: GalleryCard[] = [
     title: 'Custom Solutions',
     subtitle: 'Tailored to You',
     icon: <Box size={16} />,
-    height: 'h-[220px] sm:h-[280px] md:h-[320px]',
-    cornerStyle: 'rounded-tl-[40px] md:rounded-tl-[80px]',
-    rotate: 'md:rotate-2',
   },
 ];
 
-// Tablet shows only 3 cards, with explicit fan-style heights (short - tall - short)
-const tabletCards = [
-  { ...cards[0], tabletHeight: 'h-[260px]' },   // Villas — shorter
-  { ...cards[1], tabletHeight: 'h-[340px]' },   // Interior — tallest
-  { ...cards[2], tabletHeight: 'h-[300px]' },   // Architecture — mid
-];
-
 export const Hero: React.FC = () => {
-  const [active, setActive] = React.useState(0);
-  
+  const [active, setActive] = useState(0);
 
-  
-  React.useEffect(() => {
+  // Mobile auto-slide effect
+  useEffect(() => {
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % cards.length);
-    }, 2000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative w-full min-h-0 md:min-h-screen flex flex-col items-center overflow-hidden bg-[var(--color-background,#0a0a0a)]">
+    <section className="relative w-full min-h-[100dvh] flex flex-col items-center overflow-hidden bg-[#F9F7F3]">
+      
+      {/* SVG Definitions for different screen curves */}
+      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+        <defs>
+          {/* Shallower curve for mobile to save vertical space */}
+          <clipPath id="heroArcClipMobile" clipPathUnits="objectBoundingBox">
+            <path d="M0,0 C0.25,0.15 0.75,0.15 1,0 L1,1 L0,1 Z" />
+          </clipPath>
+          {/* Deep swooping hammock curve for desktop */}
+          <clipPath id="heroArcClipDesktop" clipPathUnits="objectBoundingBox">
+            <path d="M0,0 C0.25,0.4 0.75,0.4 1,0 L1,1 L0,1 Z" />
+          </clipPath>
+        </defs>
+      </svg>
 
-      {/* ============ MOBILE-ONLY HERO (<640px) — full viewport height, dvh-safe ============ */}
+      {/* ============ MOBILE-ONLY HERO (<640px) ============ */}
       <div
-        className="flex sm:hidden flex-col w-full min-h-[100dvh] pt-24 pb-4"
+        className="flex sm:hidden flex-col w-full h-[100dvh] pt-24"
         style={{
           paddingTop: 'max(6rem, env(safe-area-inset-top))',
-          paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
         }}
       >
-
-        {/* Heading + CTAs — pinned near top */}
-        <div className="px-5 text-center select-none shrink-0">
+        <div className="relative z-20 px-5 text-center select-none shrink-0">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.3 }}
-            className="text-[var(--color-primary,#F9F7F3)] text-[27px] font-light tracking-wide leading-snug cooper-light"
+            className="text-[#3b3534] text-[27px] font-light tracking-wide leading-snug cooper-light"
           >
             Spaces that inspire and elevate everyday living.
           </motion.h1>
@@ -117,25 +102,26 @@ export const Hero: React.FC = () => {
           >
             <Link
               to="/portfolio"
-              className="bg-[var(--color-primary)] text-[var(--color-background)] px-5 py-2.5 rounded-[18px] shadow-md text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
+              className="bg-[#6B5361] text-white px-5 py-2.5 rounded-full shadow-md text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
             >
               Explore Projects
             </Link>
             <Link
               to="/services"
-              className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-5 py-2.5 rounded-[18px] shadow-sm text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
+              className="bg-[#F3EBE0] text-[#6B5361] border border-[#6B5361]/10 px-5 py-2.5 rounded-full shadow-sm text-[13px] font-medium whitespace-nowrap active:scale-95 transition-transform"
             >
               Our Services
             </Link>
           </motion.div>
         </div>
 
-        {/* Showcase image — grows to fill remaining vertical space, auto-transitions every 2s */}
+        {/* Negative top margin pulls the curve up. Uses Mobile clip path. */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ease: [0.22, 1, 0.36, 1], duration: 1, delay: 0.75 }}
-          className="relative mt-6 mx-5 flex-1 min-h-0 overflow-hidden rounded-[24px]"
+          className="relative mt-2 w-full flex-1 min-h-[50vh] shadow-2xl z-10"
+          style={{ clipPath: 'url(#heroArcClipMobile)' }}
         >
           <AnimatePresence mode="wait">
             <motion.img
@@ -149,7 +135,7 @@ export const Hero: React.FC = () => {
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -158,65 +144,56 @@ export const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="absolute bottom-4 left-5 right-5 flex items-center gap-3"
+              className="absolute bottom-8 left-5 right-5 flex items-center gap-3"
             >
-              <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black/50 backdrop-blur-md text-white shrink-0">
                 {cards[active].icon}
               </div>
               <div className="min-w-0">
                 <p className="text-white text-[15px] font-medium truncate">
                   {cards[active].title}
                 </p>
-                <p className="text-white/60 text-xs truncate">
+                <p className="text-white/70 text-xs truncate">
                   {cards[active].subtitle}
                 </p>
               </div>
             </motion.div>
           </AnimatePresence>
         </motion.div>
-
       </div>
 
-      {/* ============ TABLET-ONLY HERO (640px–768px) — exactly 3 cards, fan heights ============ */}
-      <div className="hidden sm:flex md:hidden flex-col items-center w-full pt-40 pb-14">
-
-        <div className="relative z-10 w-full max-w-7xl px-8 text-center select-none">
+      {/* ============ TABLET & DESKTOP HERO (640px+) ============ */}
+      <div className="hidden sm:flex flex-col items-center justify-between w-full min-h-screen pt-32 md:pt-40">
+        
+        <div className="relative z-20 w-full max-w-7xl px-6 lg:px-12 text-center select-none pb-4">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
-            className="text-[var(--color-primary,#F9F7F3)] text-[38px] font-light tracking-wide leading-snug cooper-light"
+            className="text-[#3b3534] text-[38px] md:text-[56px] font-light tracking-wide md:leading-[1.15] cooper-light"
           >
-            Spaces that inspire and elevate everyday living.
+            Spaces that inspire and <br className="hidden md:block" /> elevate everyday living.
           </motion.h1>
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.7 }}
-            className="mt-8 flex items-center justify-center gap-4"
+            className="mt-10 flex items-center justify-center gap-5 pointer-events-auto"
           >
-            <motion.div
-              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-primary-dark)', borderRadius: '28px' }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.3 }}
-            >
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/portfolio"
-                className="bg-[var(--color-primary)] text-[var(--color-background)] px-8 py-3 rounded-[18px] shadow-md transition-colors flex items-center gap-2 text-base whitespace-nowrap"
+                className="bg-[#6B5361] text-white px-8 py-3.5 rounded-full shadow-md hover:bg-[#5a4551] transition-colors flex items-center gap-2 text-[15px] font-medium whitespace-nowrap"
               >
                 Explore Projects
               </Link>
             </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-secondary-dark)', borderRadius: '28px' }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.3 }}
-            >
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/services"
-                className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-8 py-3 rounded-[18px] shadow-sm transition-colors text-base whitespace-nowrap"
+                className="bg-[#F3EBE0] text-[#6B5361] border border-[#6B5361]/10 px-8 py-3.5 rounded-full shadow-sm hover:bg-[#ebe1d4] transition-colors text-[15px] font-medium whitespace-nowrap"
               >
                 Our Services
               </Link>
@@ -224,151 +201,46 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mt-12">
-          <div className="flex items-end gap-4 justify-center px-8">
-            {tabletCards.map((card, i) => (
-              <motion.div
-                key={card.id}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.1, delay: 0.5 + i * 0.12 }}
-                className={`
-                  group relative flex-1 min-w-0
-                  ${card.tabletHeight} ${card.cornerStyle}
-                  overflow-hidden shadow-2xl
-                  transition-transform duration-500
-                  hover:scale-[1.03] hover:z-20
-                `}
-              >
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
-                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
-                    {card.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-white text-[15px] font-medium truncate">{card.title}</p>
-                    <p className="text-white/60 text-xs truncate">{card.subtitle}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-center gap-2 mt-8">
-            {tabletCards.map((_, i) => (
-              <span
-                key={i}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === 0 ? 'w-6 bg-[var(--color-accent,#C4623A)]' : 'w-1.5 bg-white/25'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ============ DESKTOP HERO (768px+) — original 5-card fan, unchanged ============ */}
-      <div className="hidden md:flex flex-col items-center w-full pt-44 pb-20">
-
-        <div className="relative z-10 w-full max-w-7xl px-12 lg:px-16 text-center select-none">
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
-            className="text-[var(--color-primary,#F9F7F3)] text-[52px] font-light tracking-wide leading-[1.15] cooper-light"
+        {/* Gallery Container - Uses Desktop clip path and adds flex gap-2 for spacing */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.1, delay: 0.5 }}
+          className="relative z-10 w-full flex-1 flex flex-col -mt-12 lg:-mt-24"
+        >
+          <div
+            className="relative flex gap-2 flex-1 w-full min-h-[55vh] lg:min-h-[70vh] shadow-2xl bg-[#F9F7F3]"
+            style={{ clipPath: 'url(#heroArcClipDesktop)' }}
           >
-            Spaces that inspire and <br /> elevate everyday living.
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.7 }}
-            className="mt-8 flex items-center justify-center gap-4 pointer-events-auto"
-          >
-            <motion.div
-              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-primary-dark)', borderRadius: '28px' }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Link
-                to="/portfolio"
-                className="bg-[var(--color-primary)] text-[var(--color-background)] px-8 py-3 rounded-[18px] shadow-md transition-colors flex items-center gap-2 text-base whitespace-nowrap"
-              >
-                Explore Projects
-              </Link>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.03, backgroundColor: 'var(--color-secondary-dark)', borderRadius: '28px' }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Link
-                to="/services"
-                className="bg-[var(--color-secondary)] text-[var(--color-primary)] border border-[var(--color-primary)]/10 px-8 py-3 rounded-[18px] shadow-sm transition-colors text-base whitespace-nowrap"
-              >
-                Our Services
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        <div className="relative z-10 w-full max-w-7xl mt-20">
-          <div className="flex items-end gap-4 justify-center px-4">
             {cards.map((card, i) => (
-              <motion.div
+              <div
                 key={card.id}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.1, delay: 0.5 + i * 0.12 }}
-                className={`
-                  group relative flex-1 min-w-0
-                  ${card.height} ${card.cornerStyle} ${card.rotate}
-                  overflow-hidden shadow-2xl
-                  transition-transform duration-500
-                  hover:rotate-0 hover:scale-[1.03] hover:z-20
-                `}
+                className={`group relative flex-1 min-w-0 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[1.5] ${
+                  i > 2 ? 'hidden md:block' : 'block'
+                }`}
               >
                 <img
                   src={card.image}
                   alt={card.title}
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
+                  loading={i === 0 ? 'eager' : 'lazy'}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
-                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-[var(--color-accent,#C4623A)] shrink-0">
+                <div className="absolute bottom-8 left-8 right-8 flex flex-col lg:flex-row lg:items-center gap-3 md:translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white shrink-0">
                     {card.icon}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-white text-[15px] font-medium truncate">{card.title}</p>
-                    <p className="text-white/60 text-xs truncate">{card.subtitle}</p>
+                    <p className="text-white text-[16px] font-medium truncate">{card.title}</p>
+                    <p className="text-white/70 text-[13px] truncate">{card.subtitle}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-
-          <div className="flex items-center justify-center gap-2 mt-8">
-            {cards.map((_, i) => (
-              <span
-                key={i}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === 0 ? 'w-6 bg-[var(--color-accent,#C4623A)]' : 'w-1.5 bg-white/25'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </div>
 
     </section>

@@ -8,6 +8,7 @@ import { WhyChooseUs } from './WhyChooseUs';
 import { TestimonialSection } from './TestimonialSection';
 import { CTASection } from './CTASection';
 
+
 const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`;   // ← 1200x630 social preview image
 
@@ -102,6 +103,7 @@ export const Home: React.FC = () => {
       <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans">
         <Hero />
         <About />
+        
         <ServicesSection />
         <PortfolioSection />
         <WhyChooseUs />
