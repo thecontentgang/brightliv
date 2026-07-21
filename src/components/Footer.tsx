@@ -18,24 +18,23 @@ export const Footer: React.FC = () => {
         <div className="w-full md:w-1/2 flex justify-center md:justify-end gap-12 md:gap-32">
           <div className="flex flex-col items-center md:items-start gap-3">
             <h4 className="text-sm font-medium tracking-wide mb-1">BrightLiv</h4>
-            <a href="#" className="font-light opacity-70 hover:opacity-100 transition-opacity">Home</a>
-            <a href="#" className="font-light opacity-70 hover:opacity-100 transition-opacity">Portfolio</a>
-            <a href="#" className="font-light opacity-70 hover:opacity-100 transition-opacity">Services</a>
+            <a href="/" className="font-light opacity-70 hover:opacity-100 transition-opacity">Home</a>
+            <a href="/portfolio" className="font-light opacity-70 hover:opacity-100 transition-opacity">Portfolio</a>
+            <a href="/services" className="font-light opacity-70 hover:opacity-100 transition-opacity">Services</a>
           </div>
           <div className="flex flex-col items-center md:items-start gap-3">
             <h4 className="text-sm font-medium tracking-wide mb-1">Company</h4>
-            <a href="#" className="font-light opacity-70 hover:opacity-100 transition-opacity">About</a>
-            <a href="#" className="font-light opacity-70 hover:opacity-100 transition-opacity">Contact</a>
+            <a href="/about" className="font-light opacity-70 hover:opacity-100 transition-opacity">About</a>
+            <a href="/contact" className="font-light opacity-70 hover:opacity-100 transition-opacity">Contact</a>
             
           </div>
         </div>
       </div>
 
       {/* MIDDLE ROW: Socials & CTA */}
-      {/* MIDDLE ROW: Socials & CTA */}
       <div className="flex flex-col md:flex-row justify-between items-center md:items-end mt-12 gap-12 w-full max-w-[1600px] mx-auto">
         
-        {/* Left: Instagram Follow (Removed w-full so it stays a compact pill in the center) */}
+        {/* Left: Instagram Follow */}
         <a 
           href="https://www.instagram.com/brightliv_/" 
           className="flex items-center justify-center gap-3 bg-[#FAF9F6] text-[#704f62] px-6 py-3 rounded-full hover:scale-105 transition-transform duration-300 w-fit"
@@ -46,10 +45,9 @@ export const Footer: React.FC = () => {
           <span className="font-medium text-sm">Follow us on Instagram</span>
         </a>
 
-        {/* Right: CTA Box (Added items-center to the wrapper for mobile centering) */}
+        {/* Right: CTA Box */}
         <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto mt-4 md:mt-0">
           
-          {/* Changed mobile rounding to rounded-3xl and adjusted padding so it stacks beautifully */}
           <div className="border border-[#FAF9F6]/30 rounded-3xl sm:rounded-full p-5 sm:p-2 sm:pl-6 flex flex-col sm:flex-row items-center gap-4 justify-between w-fit text-center sm:text-left">
             <span className="font-light text-base md:text-lg">Ready to transform your space?</span>
             <button className="bg-[#FAF9F6] text-[#704f62] px-6 py-2.5 rounded-full font-medium flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-300 w-fit text-sm">
@@ -71,19 +69,19 @@ export const Footer: React.FC = () => {
 
       {/* GIANT TYPOGRAPHY */}
       <div className="w-full flex justify-center mt-10 mb-6 select-none pointer-events-none">
- <h1 className="text-[20vw] leading-[0.75] tracking-tight cooper-light text-primary">
-  BrightLiv
-</h1>
-</div>
+        <h1 className="text-[20vw] leading-[0.75] tracking-tight cooper-light text-primary">
+          BrightLiv
+        </h1>
+      </div>
 
       {/* BOTTOM ROW: Copyright & Legal */}
-      <div className="w-full max-w-[1600px] mx-auto flex flex-col-reverse md:flex-row justify-between items-center gap-4  pt-6">
+      <div className="w-full max-w-[1600px] mx-auto flex flex-col-reverse md:flex-row justify-between items-center gap-4 border-t border-[#FAF9F6]/10 pt-6">
         <p className="text-xs opacity-60 font-light text-center md:text-left">
           © 2026 BrightLiv. All rights reserved.
         </p>
         <div className="flex justify-center gap-6 md:gap-8">
-          <a href="#" className="text-xs opacity-60 hover:opacity-100 transition-opacity font-light">Privacy Policy</a>
-          <a href="#" className="text-xs opacity-60 hover:opacity-100 transition-opacity font-light">Terms of Service</a>
+          <a href="/privacy-policy" className="text-xs opacity-60 hover:opacity-100 transition-opacity font-light">Privacy Policy</a>
+          <a href="/terms-of-service" className="text-xs opacity-60 hover:opacity-100 transition-opacity font-light">Terms of Service</a>
         </div>
       </div>
 

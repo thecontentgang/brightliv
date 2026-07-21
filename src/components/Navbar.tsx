@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
           <MotionLink to="/services" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
             Services
           </MotionLink>
-          <MotionLink to="/projects" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
+          <MotionLink to="/portfolio" whileHover={{ y: -2 }} className="transition-colors text-[var(--color-heading)] whitespace-nowrap">
             Projects
           </MotionLink>
         </div>
