@@ -22,7 +22,7 @@ const imageReveal: Variants = {
 
 const serviceItems = [
   { 
-    title: "Core Millwork", 
+    title: "Hidden Works", 
     desc: "Bespoke modular interiors that combine style and functionality. We design and craft custom cabinetry, shelving, and architectural woodwork tailored to your exact spatial requirements.",
     img: "/core-millwork.png"
   },
@@ -125,7 +125,7 @@ export const ServicesSection: React.FC = () => {
                     {item.desc}
                   </p>
                   <Link 
-  to={`/services/${item.title.toLowerCase().replace(' ', '-')}`}
+  to={`/services`}
   className="group inline-flex items-center justify-center gap-3 bg-[var(--color-primary)] text-[var(--color-background)] px-8 py-4 rounded-[14px] shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:rounded-[22px]"
 >
   <span className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold">

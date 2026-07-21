@@ -9,15 +9,16 @@ const OG_IMAGE = `${SITE_URL}/og-services.jpg`; // ← 1200x630 image, distinct 
 // --- CATEGORIZED SERVICES DATA (Now with Images) ---
 const serviceCategories = [
   {
-    title: "Core Architecture & Millwork",
+    title: "Core Interiors",
     description: "The foundational elements that define the structure and flow of your space.",
     services: [
       { name: "False Ceiling", desc: "Enhance your interiors with premium false ceiling designs that add depth, elegance, and a luxurious touch.", image: "/Service-Images/false-ceiling.webp" },
-      { name: "Modular Woodwork", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/Service-Images/wood-work.webp" },
-      { name: "Wall Cladding", desc: "Give your walls a modern and durable upgrade with stone and wooden cladding, crafted for timeless appeal.", image: "/Service-Images/wall-cladding.webp" },
-      { name: "Aluminium Partitions", desc: "Create smart, modern divisions in your space with durable aluminium partitions, a blend of utility and design.", image: "/Service-Images/aluminium-partitions.webp" },
+      { name: "Modular Interiors", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/Service-Images/wood-work.webp" },
+      { name: "Onsite Interiors", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/Service-Images/wood-work.webp" },
+      { name: "Wall Paneling", desc: "Give your walls a modern and durable upgrade with stone and wooden cladding, crafted for timeless appeal.", image: "/Service-Images/wall-cladding.webp" },
+      { name: "Partitions", desc: "Create smart, modern divisions in your space with durable aluminium partitions, a blend of utility and design.", image: "/Service-Images/aluminium-partitions.webp" },
       { name: "Premium Doors", desc: "From wooden to glass, we provide luxury door solutions designed to enhance both aesthetics and security.", image: "/Service-Images/premium-doors.webp" },
-      { name: "Stone & Steel Works", desc: "Add structure and style to your interiors with custom stone and steel works crafted for long-term beauty.", image: "/Service-Images/stone-steel-works.webp" },
+      { name: "Stone Finishes", desc: "Add structure and style to your interiors with custom stone and steel works crafted for long-term beauty.", image: "/Service-Images/stone-steel-works.webp" },
     ]
   },
   {
@@ -36,7 +37,7 @@ const serviceCategories = [
     description: "Curated layers of comfort, art, and custom upholstery.",
     services: [
       { name: "Luxury Sofas", desc: "Discover custom-made luxury sofas, handcrafted for superior comfort and timeless elegance.", image: "/Service-Images/luxury-sofas.webp" },
-      { name: "Bespoke Beds", desc: "Sleep in style with premium design, utilizing high-grade plywood and imported luxury fabrics.", image: "/Service-Images/beds.webp" },
+      { name: "Modern Beds", desc: "Sleep in style with premium design, utilizing high-grade plywood and imported luxury fabrics.", image: "/Service-Images/beds.webp" },
       { name: "Home Furniture", desc: "From dining to decor, our premium home furniture collection adds sophistication to every corner.", image: "/Service-Images/home-furniture.webp" },
       { name: "Long Curtains", desc: "Add grandeur to your rooms with beautifully stitched, luxury long curtains that elevate every window space.", image: "/Service-Images/curtains.webp" },
       { name: "Window Blinds", desc: "Enhance privacy and aesthetics with premium blinds tailored to suit both modern and classic interiors.", image: "/Service-Images/window-blinds.webp" },
@@ -195,7 +196,7 @@ export const Services: React.FC = () => {
               <span className="w-8 md:w-12 h-[1px] bg-[#704f62]"></span>
             </p>
             <h1 className="text-[48px] md:text-[72px] lg:text-[84px] leading-[1.05] cooper-light">
-              Comprehensive <br /> Design Services.
+              Modern <br /> Design Services.
             </h1>
             <p className="text-lg font-light opacity-80 mt-4 leading-relaxed max-w-2xl mx-auto">
               From structural modifications to the final layer of textiles, our comprehensive service suite ensures every detail of your vision is executed flawlessly.
@@ -287,51 +288,51 @@ export const Services: React.FC = () => {
 
         {/* 3. B2B / ENTERPRISE BANNER (Unchanged) */}
         <section className="w-full px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto mt-32">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={cardVariant}
-            className="relative w-full text-[#FAF9F6] rounded-[2.5rem] p-10 md:p-16 lg:p-20 flex flex-col lg:flex-row justify-between items-center gap-12 shadow-xl overflow-hidden group"
-          >
-            {/* ── Background Image & Overlays ── */}
-            <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-              <img
-                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000&auto=format&fit=crop"
-                alt="High Rise Architecture"
-                className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#704f62]/85 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-black/20" />
-            </div>
+  <motion.div
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-50px" }}
+    variants={cardVariant}
+    className="relative w-full text-[#FAF9F6] rounded-[2.5rem] p-10 md:p-16 lg:p-20 flex flex-col lg:flex-row justify-between items-center gap-12 shadow-xl overflow-hidden group"
+  >
+    {/* ── Background Image & Overlays ── */}
+    <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+      <img
+        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2000&auto=format&fit=crop"
+        alt="Luxury Residential Interior"
+        className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-[#704f62]/85 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-black/20" />
+    </div>
 
-            {/* ── Content ── */}
-            <div className="w-full lg:w-2/3 flex flex-col gap-6 relative z-10 text-center lg:text-left">
-              <p className="text-sm tracking-[0.2em] uppercase text-[#FAF9F6]/90 font-bold drop-shadow-md">
-                Enterprise & Developer Solutions
-              </p>
-              <p className="text-[36px] md:text-[56px] cooper-light text-white leading-[1.1] drop-shadow-lg">
-                B2B Services for High Rise Apartments & Villas
-              </p>
-              <p className="text-lg font-light opacity-90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-md">
-                We offer end-to-end interior solutions for builders, commercial developers, and luxury villa properties. Partner with BrightLiv to ensure timely delivery, scaleable execution, and consistent quality across your high-volume projects.
-              </p>
-            </div>
+    {/* ── Content ── */}
+    <div className="w-full lg:w-2/3 flex flex-col gap-6 relative z-10 text-center lg:text-left">
+      <p className="text-sm tracking-[0.2em] uppercase text-[#FAF9F6]/90 font-bold drop-shadow-md">
+        Private Residences & Villas
+      </p>
+      <p className="text-[36px] md:text-[56px] cooper-light text-white leading-[1.1] drop-shadow-lg">
+        Ready to Transform Your Personal Space?
+      </p>
+      <p className="text-lg font-light opacity-90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-md">
+        Turn your dream home into reality. Work one-on-one with our elite design team to curate a space that perfectly balances timeless elegance, functional luxury, and your unique lifestyle.
+      </p>
+    </div>
 
-            {/* ── CTA Button ── */}
-            <div className="w-full lg:w-1/3 flex justify-center lg:justify-end relative z-10">
-              <button
-                onClick={() => openInquiry("B2B / Builder Services")}
-                className="px-8 py-5 bg-[#FAF9F6] text-[#704f62] rounded-full text-lg font-bold tracking-wide hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-3"
-              >
-                Partner With Us
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                </svg>
-              </button>
-            </div>
-          </motion.div>
-        </section>
+    {/* ── CTA Button ── */}
+    <div className="w-full lg:w-1/3 flex justify-center lg:justify-end relative z-10">
+      <button
+        onClick={() => openInquiry("Residential Consultation")}
+        className="px-8 py-5 bg-[#FAF9F6] text-[#704f62] rounded-full text-lg font-bold tracking-wide hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-3"
+      >
+        Book a Consultation
+        <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </button>
+    </div>
+  </motion.div>
+</section>
 
         {/* INQUIRY MODAL — opened by any "Book Now" click, pre-filled with that service */}
         <InquiryModal
