@@ -24,7 +24,7 @@ const structuredData = {
     '@type': 'LocalBusiness',
     name: 'Brightliv Interiors',
     email: 'brightlivinteriordesign@gmail.com',
-    telephone: '+91-9000607018',
+    telephone: '+91-9666065006',
     address: {
       '@type': 'PostalAddress',
       streetAddress:
@@ -265,8 +265,8 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-xs tracking-widest uppercase opacity-60 font-bold mb-1">Phone</p>
-                    <a href="tel:+919000607018" className="text-lg font-light hover:opacity-70 transition-opacity">
-                      +91 90006 07018
+                    <a href="tel:+919666065006" className="text-lg font-light hover:opacity-70 transition-opacity">
+                      +91 96660 65006
                     </a>
                   </div>
                 </div>
@@ -282,11 +282,11 @@ export const Contact: React.FC = () => {
                   <div>
                     <p className="text-xs tracking-widest uppercase opacity-60 font-bold mb-1">Address</p>
                     <p className="text-lg font-light leading-relaxed">
-                      3rd Floor, Rohini Layout Rd, opp. Shilparamam
+                      3rd Floor, Apurupa Towers, pillar No: 1629
                       <br />
-                      Near Cyber Towers Signal, Surya Enclave, Hitech City
+                      Road No 36, Jubilee Hills
                       <br />
-                      Hyderabad, Telangana 500081
+                      Hyderabad, Telangana 500033
                     </p>
                   </div>
                   <div>

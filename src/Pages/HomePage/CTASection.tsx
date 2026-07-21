@@ -60,7 +60,7 @@ export const CTASection: React.FC = () => {
             variants={fadeUp} 
             className="text-[36px] sm:text-[48px] md:text-[64px] cooper-light leading-[1.1] mb-6 text-white drop-shadow-lg"
           >
-            Let's build your <br className="hidden sm:block" /> sanctuary.
+         We Design <br className="hidden sm:block" /> Better Living
           </motion.p>
           
           {/* Subtext */}

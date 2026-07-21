@@ -15,9 +15,9 @@ const serviceCategories = [
       { name: "False Ceiling", desc: "Enhance your interiors with premium false ceiling designs that add depth, elegance, and a luxurious touch.", image: "/Service-Images/false-ceiling.webp" },
       { name: "Modular Interiors", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/Service-Images/wood-work.webp" },
       { name: "Onsite Interiors", desc: "Experience bespoke modular interiors that combine style and functionality with premium home appliances.", image: "/Service-Images/wood-work.webp" },
-      { name: "Wall Paneling", desc: "Give your walls a modern and durable upgrade with stone and wooden cladding, crafted for timeless appeal.", image: "/Service-Images/wall-cladding.webp" },
+      { name: "Wall Panelling", desc: "Give your walls a modern and durable upgrade with stone and wooden cladding, crafted for timeless appeal.", image: "/Service-Images/wall-cladding.webp" },
       { name: "Partitions", desc: "Create smart, modern divisions in your space with durable aluminium partitions, a blend of utility and design.", image: "/Service-Images/aluminium-partitions.webp" },
-      { name: "Premium Doors", desc: "From wooden to glass, we provide luxury door solutions designed to enhance both aesthetics and security.", image: "/Service-Images/premium-doors.webp" },
+      { name: "Premium Painting", desc: "From wooden to glass, we provide luxury door solutions designed to enhance both aesthetics and security.", image: "/Service-Images/premium-doors.webp" },
       { name: "Stone Finishes", desc: "Add structure and style to your interiors with custom stone and steel works crafted for long-term beauty.", image: "/Service-Images/stone-steel-works.webp" },
     ]
   },
@@ -28,7 +28,7 @@ const serviceCategories = [
       { name: "Painting", desc: "Give your walls a luxurious, flawless finish with high-quality painting services designed to elevate your space.", image: "/Service-Images/painting.webp" },
       { name: "Wallpapers", desc: "Transform your walls with elegant wallpapers that add warmth, personality, and a touch of luxury to your interiors.", image: "/Service-Images/wallpapers.webp" },
       { name: "Wooden Flooring", desc: "Step onto comfort with high-quality wooden flooring, designed for a premium look and lasting durability.", image: "/Service-Images/wooden-flooring.webp" },
-      { name: "Ceramic Tiles", desc: "Explore a wide range of luxury ceramic tiles, perfect for elegant walls, floors, and bathrooms.", image: "/Service-Images/ceramic-tiles.png" },
+      { name: "Tile Grouting", desc: "Explore a wide range of luxury ceramic tiles, perfect for elegant walls, floors, and bathrooms.", image: "/Service-Images/ceramic-tiles.png" },
       { name: "Granite Works", desc: "Bring natural beauty to your interiors with premium granite finishes, ideal for kitchens and countertops.", image: "/Service-Images/granite-works.webp" },
     ]
   },
@@ -46,16 +46,18 @@ const serviceCategories = [
     ]
   },
   {
-    title: "Specialized Installations",
-    description: "Advanced integrations for modern luxury, recreation, and peace of mind.",
-    services: [
-      { name: "Home Theaters", desc: "Experience cinematic luxury at home with our custom home theater setups that blend design with technology.", image: "/Service-Images/home-theatre.webp" },
-      { name: "Home Lifts", desc: "We install premium home lifts that combine convenience with modern aesthetics for luxury living.", image: "/Service-Images/home-lifts.webp" },
-      { name: "Swimming Pools", desc: "Redefine recreation with luxury swimming pools, designed for relaxation and built with precision.", image: "/Service-Images/swimming-pool.webp" },
-      { name: "Invisible Grills", desc: "Ensure safety without compromising style through invisible balcony grills with a clean, premium finish.", image: "/Service-Images/invisible-grill.webp" },
-      { name: "Pest Control", desc: "Protect your interiors with professional pest control services ensuring a hygienic and comfortable home.", image: "/Service-Images/pest-control.webp" },
-    ]
-  }
+  title: "Specialized Installations",
+  description: "Advanced integrations for modern luxury, recreation, and peace of mind.",
+  services: [
+    { name: "Home Theaters", desc: "Experience cinematic luxury at home with our custom home theater setups that blend design with technology.", image: "/Service-Images/home-theatre.webp" },
+    { name: "Home Lifts", desc: "We install premium home lifts that combine convenience with modern aesthetics for luxury living.", image: "/Service-Images/home-lifts.webp" },
+    { name: "Swimming Pools", desc: "Redefine recreation with luxury swimming pools, designed for relaxation and built with precision.", image: "/Service-Images/swimming-pool.webp" },
+    { name: "Invisible Grills", desc: "Ensure safety without compromising style through invisible balcony grills with a clean, premium finish.", image: "/Service-Images/invisible-grill.webp" },
+    { name: "Pest Control", desc: "Protect your interiors with professional pest control services ensuring a hygienic and comfortable home.", image: "/Service-Images/pest-control.webp" },
+    { name: "Wall Molding", desc: "Add architectural interest and elegance to your space with our custom, precision-installed wall molding designs.", image: "/Service-Images/wall-molding.webp" },
+    { name: "Texture Painting", desc: "Elevate your interior perspective with beautiful, custom texture painting that adds depth and artistic flair to any wall.", image: "/Service-Images/texture-painting.webp" }
+  ]
+}
 ];
 
 const structuredData = {
@@ -312,7 +314,7 @@ export const Services: React.FC = () => {
         Private Residences & Villas
       </p>
       <p className="text-[36px] md:text-[56px] cooper-light text-white leading-[1.1] drop-shadow-lg">
-        Ready to Transform Your Personal Space?
+       We Design <br className="hidden sm:block" /> Better Living
       </p>
       <p className="text-lg font-light opacity-90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-md">
         Turn your dream home into reality. Work one-on-one with our elite design team to curate a space that perfectly balances timeless elegance, functional luxury, and your unique lifestyle.
