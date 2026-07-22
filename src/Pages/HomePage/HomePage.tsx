@@ -9,6 +9,7 @@ import { TestimonialSection } from './TestimonialSection';
 import { CTASection } from './CTASection';
 import { FeaturedProjectSection } from './ProjectsSection';
 import { ElegantInfrastructure } from './HandleThings';
+import { DifferenceSection } from './DifferenceSection';
 
 
 const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
@@ -106,6 +107,7 @@ export const Home: React.FC = () => {
         <Hero />
         <About />
         <ElegantInfrastructure />
+        <DifferenceSection />
         <ServicesSection />
         <FeaturedProjectSection />
         <WhyChooseUs />
