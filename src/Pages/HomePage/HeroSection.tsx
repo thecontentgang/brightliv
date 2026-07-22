@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Home, Sofa, Building2, Briefcase, Box } from 'lucide-react';
+import { UtensilsCrossed, Bed, Baby, Tv, Sparkles } from 'lucide-react';
 
 interface GalleryCard {
   id: string;
@@ -13,39 +13,39 @@ interface GalleryCard {
 
 const cards: GalleryCard[] = [
   {
-    id: 'villas',
-    image: '/hero/villa.png',
-    title: 'Luxury Villas',
-    subtitle: 'Timeless Elegance',
-    icon: <Home size={16} />,
+    id: 'kitchen',
+    image: '/before-after/kitchen-after.png', // Update with your actual asset path
+    title: 'Kitchen',
+    subtitle: 'Culinary Craftsmanship',
+    icon: <UtensilsCrossed size={16} />,
   },
   {
-    id: 'interior',
-    image: '/hero/interior-design.png',
-    title: 'Interior Design',
-    subtitle: 'Where Comfort Meets Style',
-    icon: <Sofa size={16} />,
+    id: 'bedroom',
+    image: '/before-after/mbr-after.png', // Update with your actual asset path
+    title: 'Master Bedroom',
+    subtitle: 'Your Personal Sanctuary',
+    icon: <Bed size={16} />,
   },
   {
-    id: 'architecture',
-    image: '/hero/architecture.png',
-    title: 'Architecture',
-    subtitle: 'Innovative & Functional',
-    icon: <Building2 size={16} />,
+    id: 'kids-bedroom',
+    image: '/before-after/passage-after.png', // Update with your actual asset path
+    title: 'Passage',
+    subtitle: 'Playful & Imaginative',
+    icon: <Baby size={16} />,
   },
   {
-    id: 'commercial',
-    image: '/hero/commercial.png',
-    title: 'Commercial Spaces',
-    subtitle: 'Built for Business',
-    icon: <Briefcase size={16} />,
+    id: 'living',
+    image: '/before-after/tv-set-after.png', // Update with your actual asset path
+    title: 'Living Room',
+    subtitle: 'Designed for Gathering',
+    icon: <Tv size={16} />,
   },
   {
-    id: 'custom',
-    image: '/hero/custom.png',
-    title: 'Custom Solutions',
-    subtitle: 'Tailored to You',
-    icon: <Box size={16} />,
+    id: 'vanity',
+    image: '/before-after/vanity-after.png', // Update with your actual asset path
+    title: 'Vanity',
+    subtitle: 'Refined Elegance',
+    icon: <Sparkles size={16} />,
   },
 ];
 
@@ -115,7 +115,6 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Negative top margin pulls the curve up. Uses Mobile clip path. */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
