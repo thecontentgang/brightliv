@@ -14,9 +14,9 @@ const differenceData = [
   },
   {
     id: 2,
-    title: "Passage Way",
-    before: "/before-after/passage-before.png",
-    after: "/before-after/passage-after.png",
+    title: "Kids BedRoom",
+    before: "/before-after/kbr-before.png",
+    after: "/before-after/kbr-after.png",
   },
   {
     id: 3,
