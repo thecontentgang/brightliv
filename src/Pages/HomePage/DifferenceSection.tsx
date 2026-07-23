@@ -27,8 +27,8 @@ const differenceData = [
   {
     id: 4,
     title: "Master BedRoom TV",
-    before: "/before-after/tv-before.png",
-    after: "/before-after/tv-after.png",
+    before: "/before-after/tv-set-before.png",
+    after: "/before-after/tv-set-after.png",
   },
   {
     id: 5,
