@@ -33,8 +33,8 @@ const differenceData = [
   {
     id: 5,
     title: "Living Room TV",
-    before: "/before-after/tv-set-before.png",
-    after: "/before-after/tv-set-after.png",
+    before: "/before-after/tv-before.png",
+    after: "/before-after/tv-after.png",
   },
   {
     id: 6,
