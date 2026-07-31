@@ -21,11 +21,11 @@ const imageReveal: Variants = {
 };
 
 const serviceItems = [
-  { 
-    title: "Hidden Works", 
-    desc: "Bespoke modular interiors that combine style and functionality. We design and craft custom cabinetry, shelving, and architectural woodwork tailored to your exact spatial requirements.",
-    img: "/core-millwork.png"
-  },
+  {
+  title: "Ambience Matters",
+  desc: "Every space tells a story through its atmosphere. We thoughtfully balance light, materials, textures, and spatial flow to create interiors that feel inviting, timeless, and uniquely yours.",
+  img: "/core-millwork.png"
+},
   { 
     title: "Surface Finishes", 
     desc: "High-quality painting, stone cladding, and wallpaper applications. Our surface treatments define the mood of every room, bringing texture and depth to bare walls.",

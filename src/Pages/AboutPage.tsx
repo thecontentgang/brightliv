@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { InquiryModal } from '../components/InquiryModal';
 
 const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
@@ -69,7 +69,66 @@ const staggerContainer = {
 
 export const About: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState('General Inquiry'); // Added state for the modal prop
+  const [selectedService, setSelectedService] = useState('General Inquiry'); 
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+            delayChildren: 0.2,
+        }
+    }
+};
+
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    }
+};
+  
+  const stylesData = [
+    {
+        id: 1,
+        title: "Modern Minimalist",
+        description: "Clean lines, uncluttered spaces, and a monochromatic palette with purposeful accents.",
+        image: "/api/placeholder/800/1000?text=Modern+Minimalist",
+    },
+    {
+        id: 2,
+        title: "Contemporary Indian",
+        description: "A beautiful blend of traditional Indian warmth with sleek, modern sensibilities.",
+        image: "/api/placeholder/800/1000?text=Contemporary+Indian",
+    },
+    {
+        id: 3,
+        title: "Japandi Harmony",
+        description: "The perfect intersection of Scandinavian functionality and Japanese rustic minimalism.",
+        image: "/api/placeholder/800/1000?text=Japandi",
+    },
+    {
+        id: 4,
+        title: "Urban Industrial",
+        description: "Raw, exposed elements combining wood, metal, and concrete for a bold statement.",
+        image: "/api/placeholder/800/1000?text=Urban+Industrial",
+    },
+    {
+        id: 5,
+        title: "Vintage Classic",
+        description: "Timeless elegance featuring ornate details, rich textures, and sophisticated colors.",
+        image: "/api/placeholder/800/1000?text=Vintage+Classic",
+    },
+    {
+        id: 6,
+        title: "Bohemian Chic",
+        description: "A free-spirited aesthetic with layered textures, vibrant colors, and natural elements.",
+        image: "/api/placeholder/800/1000?text=Bohemian+Chic",
+    }
+];
 
   return (
     <>
@@ -239,25 +298,25 @@ export const About: React.FC = () => {
 
             {/* Founder Biography */}
             <div className="w-full lg:w-3/5 flex flex-col justify-center">
-              <p className="text-sm tracking-[0.15em] uppercase mb-2 opacity-70 font-medium text-[var(--color-primary)]">
-                Founder & Principal Director
-              </p>
-              <h2 className="text-[32px] md:text-[40px] cooper-light mb-6 text-[var(--color-heading)]">
-                Bhargav & Hasini
-              </h2>
+  <p className="text-sm tracking-[0.15em] uppercase mb-2 opacity-70 font-medium text-[var(--color-primary)]">
+    Founder & Co-Founder
+  </p>
+  <h2 className="text-[32px] md:text-[40px] cooper-light mb-6 text-[var(--color-heading)]">
+    Bhargav & Hasini
+  </h2>
 
-              <div className="space-y-6 text-lg font-light opacity-90 leading-relaxed text-[var(--color-body)]">
-                <p>
-                  Bhargav founded Brightliv Interiors following a distinguished career collaborating with several of Hyderabad's most esteemed architectural practices. He holds an advanced degree in Interior Architecture and is an active member of premier professional design councils.
-                </p>
-                <p>
-                  As the Principal Director, he oversees the strategic and creative trajectory of the studio. Known for his rigorous, client-centric methodology, Bhargav ensures that the Hyderabad-based team adheres to the highest standards of excellence, delivering spaces that are both structurally profound and flawlessly executed.
-                </p>
-                <p>
-                  He remains directly involved in high-level client consultations and maintains a hands-on approach to quality assurance across all ongoing developments. His unwavering commitment to architectural integrity and operational reliability forms the bedrock of the firm's growing legacy in the region.
-                </p>
-              </div>
-            </div>
+  <div className="space-y-6 text-lg font-light opacity-90 leading-relaxed text-[var(--color-body)]">
+    <p>
+      Bhargav and Hasini started Brightliv Interiors with a shared dream: making beautiful, stress-free homes for people in Hyderabad. While Bhargav brings his deep knowledge of interior architecture, Hasini adds her incredible talent for space planning and everyday functionality.
+    </p>
+    <p>
+      As founders, they divide their everyday work perfectly. Bhargav focuses on the big picture, guiding the creative designs and making sure every project meets their high standards. Hasini takes charge of the operations, managing timelines and ensuring every material used is top quality.
+    </p>
+    <p>
+      Together, they stay closely involved with every client from the first meeting to the final handover. They personally check on sites to promise that what gets built exactly matches the design, bringing honesty, warmth, and reliable service to every home they touch.
+    </p>
+  </div>
+</div>
           </motion.div>
         </section>
 
@@ -330,6 +389,71 @@ export const About: React.FC = () => {
           </motion.div>
         </section>
 
+        <section className="w-full bg-[var(--color-background)] py-16 md:py-24 lg:py-32">
+            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8">
+
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={cardVariants}
+                    className="flex flex-col items-center text-center mb-12 md:mb-20"
+                >
+                    <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase font-bold text-[var(--color-primary)] mb-4 md:mb-6">
+                        Curated Aesthetics
+                    </span>
+                    <h2 className="text-3xl sm:text-[40px] md:text-[56px] cooper-light leading-[1.1] text-[var(--color-heading)] max-w-2xl">
+                        Designed in your style.
+                    </h2>
+                    <p className="mt-6 text-[var(--color-body)] text-base md:text-lg max-w-xl font-light">
+                        Whether you love the calm of minimalism or the richness of traditional roots, we craft spaces that feel like a true reflection of you.
+                    </p>
+                </motion.div>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                >
+                    {stylesData.map((style) => (
+                        <motion.div
+                            key={style.id}
+                            variants={cardVariants}
+                            className="group relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] rounded-2xl md:rounded-[2rem] overflow-hidden cursor-pointer isolate"
+                        >
+                            <img
+                                src={style.image}
+                                alt={style.title}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-[0.22,1,0.36,1] group-hover:scale-110 z-0"
+                            />
+
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-90" />
+
+                            <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 md:p-8">
+                                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                                    <h3 className="text-2xl md:text-3xl text-white cooper-light mb-3">
+                                        {style.title}
+                                    </h3>
+                                    <p className="text-white/80 text-sm md:text-base font-light leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                        {style.description}
+                                    </p>
+                                </div>
+                                
+                                <div className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0">
+                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+
+            </div>
+        </section>
+
         {/* 7. CTA CARD */}
         <section className="w-full py-32 px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
           <motion.div
@@ -358,7 +482,7 @@ export const About: React.FC = () => {
                 Let's build your Home.
               </p>
               <p className="text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 text-[var(--color-background)]/90 drop-shadow-md">
-                Whether it's a single room refresh or a complete architectural overhaul, our team is ready to bring your vision to life.
+                From a simple room update to a full home makeover, we are ready to build exactly what you want.
               </p>
               <button 
                 onClick={() => {

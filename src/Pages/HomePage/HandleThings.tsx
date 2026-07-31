@@ -90,8 +90,10 @@ export const ElegantInfrastructure: React.FC = () => {
             <span className="w-6 h-[1px] bg-[var(--color-primary)]"></span>
           </div>
           <h2 className="text-[36px] md:text-[48px] cooper-light leading-[1.1]">
-            Elegant, Inside and Out.
-          </h2>
+  Hidden Works
+  <br />
+  That Shape Every Space.
+</h2>
           <p className="text-lg font-light opacity-80 leading-relaxed text-black max-w-2xl">
             Many interior companies just hide their messy work behind false ceilings and thick paint. We don't. We believe every single detail—from safety alarms to AC piping—should be planned clearly and integrated elegantly into your home's design.
           </p>
