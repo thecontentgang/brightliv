@@ -139,9 +139,68 @@ export const Portfolio: React.FC = () => {
   return (
     <>
       <Helmet>
+        {/* Primary Meta Tags */}
         <title>Portfolio | Brightliv Interiors — Selected Projects</title>
-        <meta name="description" content="Explore Brightliv Interiors' portfolio." />
-        <link rel="canonical" href={`${SITE_URL}/portfolio`} />
+        <meta name="description" content="Explore Brightliv Interiors' portfolio. Discover our premium residential, commercial, and hospitality interior design projects across Hyderabad." />
+        <meta name="keywords" content="interior design portfolio, luxury villas, commercial interiors, residential architecture, Brightliv projects, Hyderabad" />
+        <meta name="author" content="Brightliv Interiors" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`${SITE_URL}/projects`} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/projects`} />
+        <meta property="og:site_name" content="Brightliv Interiors" />
+        <meta property="og:title" content="Portfolio | Brightliv Interiors — Selected Projects" />
+        <meta property="og:description" content="Explore Brightliv Interiors' portfolio. Discover our premium residential, commercial, and hospitality interior design projects." />
+        <meta property="og:image" content={`${SITE_URL}/og-portfolio.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={`${SITE_URL}/projects`} />
+        <meta name="twitter:title" content="Portfolio | Brightliv Interiors — Selected Projects" />
+        <meta name="twitter:description" content="Explore Brightliv Interiors' portfolio. Discover our premium residential, commercial, and hospitality interior design projects." />
+        <meta name="twitter:image" content={`${SITE_URL}/og-portfolio.jpg`} />
+
+        {/* Theme */}
+        <meta name="theme-color" content="#FAF9F6" />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Brightliv Interiors Portfolio",
+            "url": `${SITE_URL}/projects`,
+            "description": "A collection of our best interior design and architecture projects.",
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": projects.map((project, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": project.title,
+                  "description": project.description,
+                  "image": SITE_URL + project.images[0]
+                }
+              }))
+            }
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": `${SITE_URL}/projects` }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-24">
