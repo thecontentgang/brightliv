@@ -85,14 +85,14 @@ export const Hero: React.FC = () => {
         }}
       >
         <div className="relative z-20 px-5 text-center select-none shrink-0">
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.2, delay: 0.3 }}
             className="text-[#3b3534] text-[27px] font-light tracking-wide leading-snug cooper-light"
           >
             Spaces that inspire and elevate everyday living.
-          </motion.h1>
+          </motion.h2>
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -165,14 +165,14 @@ export const Hero: React.FC = () => {
       <div className="hidden sm:flex flex-col items-center justify-between w-full min-h-screen pt-32 md:pt-40">
         
         <div className="relative z-20 w-full max-w-7xl px-6 lg:px-12 text-center select-none pb-4">
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 1.4, delay: 0.4 }}
             className="text-[#3b3534] text-[38px] md:text-[56px] font-light tracking-wide md:leading-[1.15] cooper-light"
           >
             Spaces that inspire and <br className="hidden md:block" /> elevate everyday living.
-          </motion.h1>
+          </motion.h2>
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}

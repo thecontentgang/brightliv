@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { SEO } from '../../components/SEO';
 import { Hero } from './HeroSection';
 import { About } from './AboutSection';
 import { ServicesSection } from './ServicesSection';
@@ -48,51 +49,13 @@ const structuredData = {
 export const Home: React.FC = () => {
   return (
     <>
+      <SEO
+        title="Best Interior Designers in Hyderabad | Bright Liv"
+        description="Transform your home with Bright Liv, expert interior designers in Hyderabad. We create stylish, functional interiors for homes, villas, apartments, and offices."
+        keywords="interior design Hyderabad, luxury villa architects, commercial interior design, custom home solutions, architecture firm Hyderabad, BrightLiv Interiors"
+        canonical="/"
+      />
       <Helmet>
-        {/* Primary Meta Tags */}
-        <title>BrightLiv Interiors | Luxury Villas, Architecture & Interior Design</title>
-        <meta
-          name="description"
-          content="BrightLiv Interiors crafts luxury villas, modern architecture, interior design, and commercial spaces that inspire and elevate everyday living. Based in Hyderabad."
-        />
-        <meta
-          name="keywords"
-          content="interior design Hyderabad, luxury villa architects, commercial interior design, custom home solutions, architecture firm Hyderabad, BrightLiv Interiors"
-        />
-        <meta name="author" content="BrightLiv Interiors" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={SITE_URL} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={SITE_URL} />
-        <meta property="og:site_name" content="BrightLiv Interiors" />
-        <meta
-          property="og:title"
-          content="BrightLiv Interiors | Luxury Villas, Architecture & Interior Design"
-        />
-        <meta
-          property="og:description"
-          content="Spaces that inspire and elevate everyday living — luxury villas, interiors, architecture, commercial spaces, and custom solutions."
-        />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_IN" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={SITE_URL} />
-        <meta
-          name="twitter:title"
-          content="BrightLiv Interiors | Luxury Villas, Architecture & Interior Design"
-        />
-        <meta
-          name="twitter:description"
-          content="Spaces that inspire and elevate everyday living — luxury villas, interiors, architecture, commercial spaces, and custom solutions."
-        />
-        <meta name="twitter:image" content={OG_IMAGE} />
-
         {/* Theme / Mobile */}
         <meta name="theme-color" content="#FAF9F6" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -104,6 +67,11 @@ export const Home: React.FC = () => {
       </Helmet>
 
       <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans">
+        {/* SEO H1 */}
+        <h1 className="sr-only">
+          Transforming Spaces with Expert Interior Designers in Hyderabad
+        </h1>
+
         <Hero />
         <About />
         <ElegantInfrastructure />

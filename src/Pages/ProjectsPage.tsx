@@ -140,8 +140,8 @@ export const Portfolio: React.FC = () => {
     <>
       <Helmet>
         {/* Primary Meta Tags */}
-        <title>Portfolio | Brightliv Interiors — Selected Projects</title>
-        <meta name="description" content="Explore Brightliv Interiors' portfolio. Discover our premium residential, commercial, and hospitality interior design projects across Hyderabad." />
+        <title>Interior Design Portfolio in Hyderabad | Bright Liv</title>
+        <meta name="description" content="Explore Bright Liv's interior design portfolio showcasing real home, villa, apartment, office, and commercial projects in Hyderabad, backed by 11+ years of expertise." />
         <meta name="keywords" content="interior design portfolio, luxury villas, commercial interiors, residential architecture, Brightliv projects, Hyderabad" />
         <meta name="author" content="Brightliv Interiors" />
         <meta name="robots" content="index, follow" />
@@ -204,7 +204,9 @@ export const Portfolio: React.FC = () => {
       </Helmet>
 
       <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-24">
-        
+        <h1 className="sr-only">
+  Interior Design Portfolio in Hyderabad
+</h1>
         {/* HEADER SECTION */}
         <section className="w-full pt-32 md:pt-48 pb-16 px-6 sm:px-8 md:px-12 lg:px-16 max-w-[1400px] mx-auto">
           <motion.div 

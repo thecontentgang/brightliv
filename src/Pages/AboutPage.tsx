@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { SEO } from '../components/SEO';
 import { motion, type Variants } from 'framer-motion';
 import { InquiryModal } from '../components/InquiryModal';
 
-const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
+const SITE_URL = 'https://www.brightliv.in'; // ← replace with your real domain
 const OG_IMAGE = `${SITE_URL}/og-about.jpg`;   // ← 1200x630 image, distinct from homepage OG image
 
 const structuredData = {
@@ -132,51 +133,14 @@ const cardVariants: Variants = {
 
   return (
     <>
+      <SEO
+        title="About Bright Liv | 11+ Years of Interior Design Excellence"
+        description="Learn about Bright Liv, a trusted interior design company in Hyderabad with 11+ years of expertise in creating beautiful, functional homes, offices, and commercial spaces."
+        keywords="about Brightliv Interiors, interior design firm Hyderabad, Bhargav Hasini founder, interior architecture team, design studio Hyderabad"
+        canonical="/about"
+        image={OG_IMAGE}
+      />
       <Helmet>
-        {/* Primary Meta Tags */}
-        <title>About Us | Brightliv Interiors — 11 Years of Design Excellence</title>
-        <meta
-          name="description"
-          content="Meet the team behind Brightliv Interiors. 11 years of experience, 200+ spaces designed across 15 cities, led by Founder & Principal Director Bhargav and Hasini."
-        />
-        <meta
-          name="keywords"
-          content="about Brightliv Interiors, interior design firm Hyderabad, Bhargav Hasini founder, interior architecture team, design studio Hyderabad"
-        />
-        <meta name="author" content="Brightliv Interiors" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`${SITE_URL}/about`} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${SITE_URL}/about`} />
-        <meta property="og:site_name" content="Brightliv Interiors" />
-        <meta
-          property="og:title"
-          content="About Us | Brightliv Interiors — 11 Years of Design Excellence"
-        />
-        <meta
-          property="og:description"
-          content="Designing life, beautifully structured. Discover our story, our founders, and the team behind 200+ spaces designed across 15 cities."
-        />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_IN" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={`${SITE_URL}/about`} />
-        <meta
-          name="twitter:title"
-          content="About Us | Brightliv Interiors — 11 Years of Design Excellence"
-        />
-        <meta
-          name="twitter:description"
-          content="Designing life, beautifully structured. Discover our story, our founders, and the team behind 200+ spaces designed across 15 cities."
-        />
-        <meta name="twitter:image" content={OG_IMAGE} />
-
         {/* Theme */}
         <meta name="theme-color" content="#FAF9F6" />
 
@@ -187,6 +151,9 @@ const cardVariants: Variants = {
       </Helmet>
 
       <main className="w-full bg-[var(--color-background)] text-[var(--color-primary)] overflow-hidden font-sans">
+      <h1 className='sr-only'>
+        About Bright Liv
+      </h1>
 
         {/* 1. HERO & INTRO CARD */}
         <section className="w-full pt-32 md:pt-48 pb-20 px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
@@ -203,9 +170,9 @@ const cardVariants: Variants = {
                   <span className="w-12 h-[1px] bg-[var(--color-primary)]"></span>
                   The Studio
                 </p>
-               <h1 className="text-[52px] md:text-[72px] lg:text-[84px] leading-[1.05] cooper-light">
+               <h2 className="text-[52px] md:text-[72px] lg:text-[84px] leading-[1.05] cooper-light">
   Beautiful spaces, <br /> designed for <span className="italic opacity-80">living.</span>
-</h1>
+</h2>
               </motion.div>
 
               {/* Right Side - Info Card */}

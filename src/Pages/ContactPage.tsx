@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { SEO } from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SITE_URL = 'https://www.brightliv.com'; // ← replace with your real domain
@@ -172,45 +173,14 @@ export const Contact: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Contact Us | Interior Designers in Hyderabad | Bright Liv"
+        description="Contact Us Bright Liv, trusted interior designers in Hyderabad. Schedule a free consultation for home, office, villa, apartment, and commercial interior projects."
+        keywords="contact Brightliv Interiors, interior design inquiry Hyderabad, request a quote, book consultation, interior architecture firm contact"
+        canonical="/contact"
+        image={OG_IMAGE}
+      />
       <Helmet>
-        {/* Primary Meta Tags */}
-        <title>Contact Us | Brightliv Interiors — Start Your Project</title>
-        <meta
-          name="description"
-          content="Get in touch with Brightliv Interiors, Hyderabad, for residential, commercial, or hospitality project inquiries. Reach our studio by phone, email, or our contact form."
-        />
-        <meta
-          name="keywords"
-          content="contact Brightliv Interiors, interior design inquiry Hyderabad, request a quote, book consultation, interior architecture firm contact"
-        />
-        <meta name="author" content="Brightliv Interiors" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`${SITE_URL}/contact`} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${SITE_URL}/contact`} />
-        <meta property="og:site_name" content="Brightliv Interiors" />
-        <meta property="og:title" content="Contact Us | Brightliv Interiors — Start Your Project" />
-        <meta
-          property="og:description"
-          content="We welcome inquiries for residential, commercial, and hospitality projects. Reach our studio directly or submit an inquiry online."
-        />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_IN" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={`${SITE_URL}/contact`} />
-        <meta name="twitter:title" content="Contact Us | Brightliv Interiors — Start Your Project" />
-        <meta
-          name="twitter:description"
-          content="We welcome inquiries for residential, commercial, and hospitality projects. Reach our studio directly or submit an inquiry online."
-        />
-        <meta name="twitter:image" content={OG_IMAGE} />
-
         {/* Theme */}
         <meta name="theme-color" content="#FAF9F6" />
 
@@ -220,6 +190,7 @@ export const Contact: React.FC = () => {
       </Helmet>
 
       <main className="w-full min-h-screen bg-[#FAF9F6] text-[#704f62] overflow-hidden font-sans pb-24">
+        
         {/* 1. HEADER SECTION */}
         <section className="w-full pt-32 md:pt-48 pb-12 px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col gap-6">
