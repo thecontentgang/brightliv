@@ -258,7 +258,7 @@ const cardVariants: Variants = {
                 <img
                   src="/founder.jpeg"
                   alt="Bhargav - Founder"
-                  className="w-full h-full object-cover object-center"
+                 className="w-full h-full object-cover object-center scale-140"
                 />
               </div>
             </div>
@@ -360,63 +360,140 @@ const cardVariants: Variants = {
             <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8">
 
                 <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={cardVariants}
-                    className="flex flex-col items-center text-center mb-12 md:mb-20"
-                >
-                    <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase font-bold text-[var(--color-primary)] mb-4 md:mb-6">
-                        Curated Aesthetics
-                    </span>
-                    <h2 className="text-3xl sm:text-[40px] md:text-[56px] cooper-light leading-[1.1] text-[var(--color-heading)] max-w-2xl">
-                        Designed in your style.
-                    </h2>
-                    <p className="mt-6 text-[var(--color-body)] text-base md:text-lg max-w-xl font-light">
-                        Whether you love the calm of minimalism or the richness of traditional roots, we craft spaces that feel like a true reflection of you.
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-100px" }}
+    variants={cardVariants}
+    className="flex flex-col items-center text-center mb-12 md:mb-20"
+>
+    <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase font-bold text-[var(--color-primary)] mb-4 md:mb-6">
+        Curated Aesthetics
+    </span>
+
+    <h2 className="text-3xl sm:text-[40px] md:text-[56px] cooper-light leading-[1.1] text-[var(--color-heading)] max-w-2xl">
+        Designed in your style.
+    </h2>
+
+    <p className="mt-6 text-[var(--color-body)] text-base md:text-lg max-w-xl font-light">
+        Whether you love the calm of minimalism or the richness of traditional
+        roots, we craft spaces that feel like a true reflection of you.
+    </p>
+</motion.div>
+
+<motion.div
+    variants={containerVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-100px" }}
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7"
+>
+    {stylesData.map((style, index) => (
+        <motion.div
+            key={style.id}
+            variants={cardVariants}
+            className="group relative overflow-hidden rounded-2xl md:rounded-[2rem] 
+                       border border-[var(--color-heading)]/10 
+                       bg-[var(--color-heading)]/[0.025]
+                       p-7 md:p-9 min-h-[280px] md:min-h-[330px]
+                       cursor-pointer transition-all duration-500
+                       hover:-translate-y-2
+                       hover:border-[var(--color-primary)]/30
+                       hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
+        >
+            {/* Decorative Number */}
+            <div className="absolute top-6 right-7 md:top-8 md:right-9">
+                <span className="text-xs tracking-[0.2em] text-[var(--color-body)]/40 font-medium">
+                    0{index + 1}
+                </span>
+            </div>
+
+            {/* Decorative Circle */}
+            <div
+                className="absolute -right-16 -bottom-16 w-40 h-40 rounded-full
+                           border border-[var(--color-primary)]/10
+                           transition-all duration-700
+                           group-hover:scale-150
+                           group-hover:border-[var(--color-primary)]/20"
+            />
+
+            <div
+                className="absolute -right-8 -bottom-8 w-24 h-24 rounded-full
+                           bg-[var(--color-primary)]/[0.04]
+                           transition-all duration-700
+                           group-hover:scale-125"
+            />
+
+            {/* Content */}
+            <div className="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                    {/* Small line */}
+                    <div
+                        className="w-8 h-px bg-[var(--color-primary)] mb-8
+                                   transition-all duration-500
+                                   group-hover:w-16"
+                    />
+
+                    <h3
+                        className="text-2xl md:text-3xl lg:text-[32px]
+                                   cooper-light text-[var(--color-heading)]
+                                   leading-tight mb-5
+                                   transition-transform duration-500
+                                   group-hover:translate-x-1"
+                    >
+                        {style.title}
+                    </h3>
+
+                    <p
+                        className="text-sm md:text-base
+                                   text-[var(--color-body)]/75
+                                   font-light leading-relaxed max-w-sm"
+                    >
+                        {style.description}
                     </p>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-                >
-                    {stylesData.map((style) => (
-                        <motion.div
-                            key={style.id}
-                            variants={cardVariants}
-                            className="group relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] rounded-2xl md:rounded-[2rem] overflow-hidden cursor-pointer isolate"
+                {/* Bottom */}
+                <div className="mt-8 flex items-center justify-between">
+                    <span
+                        className="text-[10px] md:text-xs uppercase
+                                   tracking-[0.25em]
+                                   text-[var(--color-body)]/50
+                                   transition-colors duration-300
+                                   group-hover:text-[var(--color-primary)]"
+                    >
+                        Explore Style
+                    </span>
+
+                    <div
+                        className="w-9 h-9 md:w-10 md:h-10 rounded-full
+                                   border border-[var(--color-heading)]/10
+                                   flex items-center justify-center
+                                   transition-all duration-500
+                                   group-hover:bg-[var(--color-primary)]
+                                   group-hover:border-[var(--color-primary)]
+                                   group-hover:rotate-45"
+                    >
+                        <svg
+                            className="w-4 h-4 text-[var(--color-heading)]
+                                       transition-colors duration-300
+                                       group-hover:text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
                         >
-                            <img
-                                src={style.image}
-                                alt={style.title}
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-[0.22,1,0.36,1] group-hover:scale-110 z-0"
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M5 19L19 5M19 5H8M19 5v11"
                             />
-
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-90" />
-
-                            <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 md:p-8">
-                                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                                    <h3 className="text-2xl md:text-3xl text-white cooper-light mb-3">
-                                        {style.title}
-                                    </h3>
-                                    <p className="text-white/80 text-sm md:text-base font-light leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                        {style.description}
-                                    </p>
-                                </div>
-                                
-                                <div className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0">
-                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    ))}
+</motion.div>
 
             </div>
         </section>
