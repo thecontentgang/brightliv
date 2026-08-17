@@ -1,4 +1,9 @@
-User-agent: *
-Allow: /
+User-agent: * Allow: /
 
-Sitemap: https://www.brightliv.com/sitemap.xml
+Sitemap
+
+Sitemap: https://www.brightliv.in/sitemap.xml
+
+Optional crawl-delay (ignored by Google)
+
+Crawl-delay: 1
